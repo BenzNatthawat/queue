@@ -1,0 +1,14 @@
+[2019-10-31T01:14:39.938] [ERROR] error - Database Error Connection Error: ReferenceError: connection is not defined
+    at _callee$ (C:/Users/Benz/Documents/queue/queue-api/src/config/db.js:21:47)
+    at tryCatch (C:\Users\Benz\Documents\queue\queue-api\node_modules\regenerator-runtime\runtime.js:62:40)
+    at Generator.invoke [as _invoke] (C:\Users\Benz\Documents\queue\queue-api\node_modules\regenerator-runtime\runtime.js:296:22)
+    at Generator.prototype.<computed> [as next] (C:\Users\Benz\Documents\queue\queue-api\node_modules\regenerator-runtime\runtime.js:114:21)
+    at step (C:\Users\Benz\Documents\queue\queue-api\src\config\db.js:25:191)
+    at C:\Users\Benz\Documents\queue\queue-api\src\config\db.js:25:437
+    at new Promise (<anonymous>)
+    at C:\Users\Benz\Documents\queue\queue-api\src\config\db.js:25:99
+    at loadDB (C:/Users/Benz/Documents/queue/queue-api/src/config/db.js:7:7)
+    at Object.<anonymous> (C:/Users/Benz/Documents/queue/queue-api/index.js:24:1)
+[2019-10-31T01:14:39.948] [ERROR] error - Error: Error: ReferenceError: connection is not defined
+    at C:/Users/Benz/Documents/queue/queue-api/index.js:25:16
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)
