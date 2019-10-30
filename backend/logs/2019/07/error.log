@@ -1,0 +1,44 @@
+[2019-07-26T16:13:59.357] [ERROR] error - Error: Error: MongoParseError: Invalid connection string
+    at C:/Users/banz_/Documents/word_Benz/node-api-structure/index.js:26:16
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:744:11)
+    at Object.<anonymous> (C:\Users\banz_\Documents\word_Benz\node-api-structure\node_modules\babel-cli\lib\_babel-node.js:154:22)
+    at Module._compile (internal/modules/cjs/loader.js:688:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)
+    at Module.load (internal/modules/cjs/loader.js:598:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:529:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:741:12)
+[2019-07-26T16:18:45.375] [ERROR] error - Error: Error: MongoParseError: Invalid connection string
+    at C:/Users/banz_/Documents/word_Benz/node-api-structure/index.js:26:16
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:744:11)
+    at Object.<anonymous> (C:\Users\banz_\Documents\word_Benz\node-api-structure\node_modules\babel-cli\lib\_babel-node.js:154:22)
+    at Module._compile (internal/modules/cjs/loader.js:688:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)
+    at Module.load (internal/modules/cjs/loader.js:598:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:529:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:741:12)
+[2019-07-26T16:18:54.248] [ERROR] error - Error: Error: MongoParseError: Invalid connection string
+    at C:/Users/banz_/Documents/word_Benz/node-api-structure/index.js:26:16
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:744:11)
+    at Object.<anonymous> (C:\Users\banz_\Documents\word_Benz\node-api-structure\node_modules\babel-cli\lib\_babel-node.js:154:22)
+    at Module._compile (internal/modules/cjs/loader.js:688:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)
+    at Module.load (internal/modules/cjs/loader.js:598:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:529:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:741:12)
+[2019-07-26T16:22:47.434] [ERROR] error - Error: Error: MongoParseError: Invalid connection string
+    at C:/Users/banz_/Documents/word_Benz/node-api-structure/index.js:25:16
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:744:11)
+    at Object.<anonymous> (C:\Users\banz_\Documents\word_Benz\node-api-structure\node_modules\babel-cli\lib\_babel-node.js:154:22)
+    at Module._compile (internal/modules/cjs/loader.js:688:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:699:10)
+    at Module.load (internal/modules/cjs/loader.js:598:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:537:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:529:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:741:12)
