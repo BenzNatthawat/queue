@@ -1,12 +1,14 @@
 import express from 'express'
-import memberService from './member.service'
+import loadDB from '../../config/db'
 
 const router = express.Router()
 
 const getAll = async (req, res, next) => {
-  memberService.getAll()
-    .then(users => res.json(users))
-    .catch(err => next(err))
+  const db = await loadDB()
+  await db.query('SELECT * FROM users', (err, results) => {
+    if (err) throw err
+    return res.json(results)
+  })
 }
 
 router.get('/', getAll)

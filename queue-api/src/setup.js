@@ -7,11 +7,14 @@ import jwt from './config/jwt'
 import errorHandler from './config/errorHandler'
 import conf from './config'
 
+// ต้อง login ก่อน
 const setupRoutesNotLS = function (app) {
 }
 
+// ไม่ต้อง login
 const setupRoutes = function (app) {
   app.use(`/${conf.apiName}/members`, require('./api/members/members.controller'))
+  app.use(`/${conf.apiName}/login`, require('./api/login/login.controller'))
 }
 
 const invalidRoute = (app) => {
@@ -29,7 +32,7 @@ export default function (app, config) {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
 
-  app.use(jwt())
+  // app.use(jwt())
 
   app.use(expressValidator({
     customValidators: {
