@@ -20,7 +20,10 @@ const conf = {
     secretKey: process.env.SECRETKEY || 'demo_secret_key',
     db: {
       uri: process.env.AUTHENAPP_DB_URI,
-      dbname: process.env.AUTHENAPP_DB_DATABASENAME
+      host: process.env.AUTHENAPP_DB_DATABASEHOST,
+      dbname: process.env.AUTHENAPP_DB_DATABASENAME,
+      name: process.env.AUTHENAPP_DB_NAME,
+      password: process.env.AUTHENAPP_DB_PASSWORD,
     },
     apiName: 'api'
   },
@@ -34,8 +37,11 @@ const conf = {
     webDomain: process.env.AUTHENAPP_DOMAIN,
     secretKey: process.env.SECRETKEY,
     db: {
-      uri: process.env.AUTHENAPP_MONGODB_URI,
-      dbname: process.env.AUTHENAPP_MONGODB_DATABASENAME
+      uri: process.env.AUTHENAPP_DB_URI,
+      host: process.env.AUTHENAPP_DB_DATABASEHOST,
+      dbname: process.env.AUTHENAPP_DB_DATABASENAME,
+      name: process.env.AUTHENAPP_DB_NAME,
+      password: process.env.AUTHENAPP_DB_PASSWORD,
     },
     apiName: 'api'
   }

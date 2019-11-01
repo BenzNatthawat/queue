@@ -13,7 +13,8 @@ const setupRoutesNotLS = function (app) {
 
 // ไม่ต้อง login
 const setupRoutes = function (app) {
-  app.use(`/${conf.apiName}/members`, require('./api/members/members.controller'))
+  app.use(`/${conf.apiName}/members`, require('./api/users/users.controller'))
+  app.use(`/${conf.apiName}/queues`, require('./api/queues/queues.controller'))
   app.use(`/${conf.apiName}/login`, require('./api/login/login.controller'))
 }
 

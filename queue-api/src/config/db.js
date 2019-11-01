@@ -10,10 +10,10 @@ const loadDB = async () => {
   }
   try {
     var con = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'mydb'
+      host: config.db.host,
+      database: config.db.dbname,
+      user: config.db.name,
+      password: config.db.password,
     });
     con.connect(function (err) {
       if (err) throw err;
