@@ -1,4 +1,4 @@
-package com.example.queue_app;
+package com.example.queueapp;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.queue_app", appContext.getPackageName());
+        assertEquals("com.example.queueapp", appContext.getPackageName());
     }
 }

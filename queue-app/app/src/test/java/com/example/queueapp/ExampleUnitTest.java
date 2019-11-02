@@ -1,4 +1,4 @@
-package com.example.queue_app;
+package com.example.queueapp;
 
 import org.junit.Test;
 
