@@ -6,13 +6,20 @@ const router = express.Router()
 
 const login = async (req, res, next) => {
   const { username, password } = req.body
-  const saltRounds = 10;
-  const hash = await bcrypt.hash(password, saltRounds).then(hash => hash)
-  const loginStatus = bcrypt.compareSync(password, '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm')
-  if (loginStatus) {
-    res.json({ username, password, hash })
-  }
-  res.json({ status: 400, error: 'login failed' })
+  const db = await loadDB()
+  const user = await db.query(`SELECT * FROM users WHERE username = '${username}'`, (err, results) => {
+    if (err) throw err
+    res.setHeader('Content-Type', 'application/xml')
+    if (results.length) {
+      // const saltRounds = 10;
+      // bcrypt.hash(password, saltRounds).then(hash => hash)
+      const loginStatus = bcrypt.compareSync(password, results[0].password)
+      if (loginStatus) {
+        res.json({ success: 'login success', username }, 0, 500)
+      }
+    }
+    res.json({ error: 'login failed' }, 0, 500)
+  })
 }
 
 router.post('/', login)

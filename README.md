@@ -3,3 +3,4 @@
 2. Android Studio [download](https://developer.android.com/studio/?gclid=Cj0KCQjwr-_tBRCMARIsAN413WT0IaE_XnMEn36Ph0mY-4hl0nuv-sSDb5wtfWUn0_zg1E6meQTZAqoaAjQfEALw_wcB)
 3. Visual Studio Code [download](https://code.visualstudio.com/)
 4. yarn [download](https://yarnpkg.com/lang/en/docs/install/#windows-stable)
+5. xampp [download](https://www.apachefriends.org/index.html)

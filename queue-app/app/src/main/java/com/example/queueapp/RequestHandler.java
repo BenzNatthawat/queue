@@ -1,7 +1,6 @@
-package com.prodevsblog.httptest;
+package com.example.queueapp;
 
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -20,13 +19,14 @@ public class RequestHandler {
         URL url = new URL(r_url);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setReadTimeout(20000);
-        conn.setConnectTimeout(20000);
+        conn.setReadTimeout(200000);
+        conn.setConnectTimeout(200000);
         conn.setRequestMethod("POST");
         conn.setDoInput(true);
         conn.setDoOutput(true);
-
+        System.out.println("yyyyy" + conn.getOutputStream());
         OutputStream os = conn.getOutputStream();
+
         BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(os, "UTF-8"));
         writer.write(encodeParams(postDataParams));
         writer.flush();
