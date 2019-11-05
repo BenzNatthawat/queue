@@ -18,6 +18,7 @@ const conf = {
     port: process.env.AUTHENAPP_PORT || 3000,
     webDomain: process.env.AUTHENAPP_DOMAIN || 'localhost',
     secretKey: process.env.SECRETKEY || 'demo_secret_key',
+    expiresIn: '24hr',
     db: {
       uri: process.env.AUTHENAPP_DB_URI,
       host: process.env.AUTHENAPP_DB_DATABASEHOST,
@@ -36,6 +37,7 @@ const conf = {
     port: process.env.AUTHENAPP_PORT,
     webDomain: process.env.AUTHENAPP_DOMAIN,
     secretKey: process.env.SECRETKEY,
+    expiresIn: '24hr',
     db: {
       uri: process.env.AUTHENAPP_DB_URI,
       host: process.env.AUTHENAPP_DB_DATABASEHOST,

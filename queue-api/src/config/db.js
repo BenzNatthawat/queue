@@ -14,7 +14,8 @@ const loadDB = async () => {
       database: config.db.dbname,
       user: config.db.name,
       password: config.db.password,
-      debug: false
+      debug: false,
+      multipleStatements: true
     })
     con.connect(function (err) {
       if (!err) {
