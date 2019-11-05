@@ -7,15 +7,28 @@ import jwt from './config/jwt'
 import errorHandler from './config/errorHandler'
 import conf from './config'
 
+const middleware = ((req, res, next) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  log.info(`IP: ${ip} used ws ${JSON.stringify(req.body)}`)
+
+  checkTokenApp(req).then((r) => {
+    if (r.errors) {
+      return res.status(r.status || 401).json({ errors: r.errors })
+    }
+    next()
+  })
+})
+
+
 // ต้อง login ก่อน
 const setupRoutesNotLS = function (app) {
+  app.use(`/${conf.apiName}/queues`, middleware, require('./api/queues/queues.controller'))
 }
 
 // ไม่ต้อง login
 const setupRoutes = function (app) {
-  app.use(`/${conf.apiName}/members`, require('./api/users/users.controller'))
-  app.use(`/${conf.apiName}/queues`, require('./api/queues/queues.controller'))
   app.use(`/${conf.apiName}/login`, require('./api/login/login.controller'))
+  app.use(`/${conf.apiName}/register`, require('./api/register/register.controller'))
 }
 
 const invalidRoute = (app) => {

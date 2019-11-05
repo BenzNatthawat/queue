@@ -7,18 +7,21 @@ const router = express.Router()
 const login = async (req, res, next) => {
   const { username, password } = req.body
   const db = await loadDB()
-  const user = await db.query(`SELECT * FROM users WHERE username = '${username}'`, (err, results) => {
+  const user = db.query(`SELECT * FROM users WHERE username = '${username}'`, (err, results) => {
     if (err) throw err
-    res.setHeader('Content-Type', 'application/xml')
-    if (results.length) {
-      // const saltRounds = 10;
-      // bcrypt.hash(password, saltRounds).then(hash => hash)
+    if (results.length > 0) {
       const loginStatus = bcrypt.compareSync(password, results[0].password)
       if (loginStatus) {
-        res.json({ success: 'login success', username }, 0, 500)
+        const payload = {
+          sub: username,
+          iat: new Date().getTime() //มาจากคำว่า issued at time (สร้างเมื่อ)
+        }
+        const SECRET = 'QUEUE_APP_KEY' //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
+        const token = jwt.encode(payload, SECRET)
+        return res.json({ success: 'login success', username, token })
       }
     }
-    res.json({ error: 'login failed' }, 0, 500)
+    return res.json({ error: 'login failed' })
   })
 }
 

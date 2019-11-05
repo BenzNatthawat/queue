@@ -14,12 +14,16 @@ const loadDB = async () => {
       database: config.db.dbname,
       user: config.db.name,
       password: config.db.password,
-    });
+      debug: false
+    })
     con.connect(function (err) {
-      if (err) throw err;
-      console.log('Connected Success!')
-      db = con
-    });
+      if (!err) {
+        console.log("Database is connected ... nn");
+        db = con
+      } else {
+        console.log("Error connecting database ... nn");
+      }
+    })
   } catch (err) {
     logErr.error('Database Error Connection', new Error(err))
     throw new Error(err)
