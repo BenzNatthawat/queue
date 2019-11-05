@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 postDataParams.put("username", username);
                 postDataParams.put("password", password);
 
-                return RequestHandler.sendPost("http://10.0.2.2:5000/api/login", postDataParams);
+                return RequestHandler.sendPost("http://10.0.2.2:5000/api/login", postDataParams, "");
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());

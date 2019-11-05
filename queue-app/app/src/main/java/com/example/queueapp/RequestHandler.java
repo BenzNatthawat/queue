@@ -15,10 +15,11 @@ import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
 
 public class RequestHandler {
-    public static String sendPost(String r_url , JSONObject postDataParams) throws Exception {
+    public static String sendPost(String r_url , JSONObject postDataParams, String authorization) throws Exception {
         URL url = new URL(r_url);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestProperty ("authorization", authorization);
         conn.setReadTimeout(200000);
         conn.setConnectTimeout(200000);
         conn.setRequestMethod("POST");
@@ -48,9 +49,10 @@ public class RequestHandler {
         }
         return null;
     }
-    public static String sendGet(String url) throws IOException {
+    public static String sendGet(String url, String authorization) throws IOException {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestProperty ("authorization", authorization);
         con.setRequestMethod("GET");
         int responseCode = con.getResponseCode();
         System.out.println("Response Code :: " + responseCode);

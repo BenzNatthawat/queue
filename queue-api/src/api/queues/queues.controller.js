@@ -30,7 +30,7 @@ const create = async (req, res, next) => {
         technicians__id = results[1][0].id
       }
     }
-    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, 'comment', ${technicians__id}, ${userId})`, (err, results) => {
+    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, ${req.body.comment}, ${technicians__id}, ${userId})`, (err, results) => {
       if (err) throw err
       return res.json(results)
     })
