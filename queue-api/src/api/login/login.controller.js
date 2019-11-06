@@ -1,29 +1,29 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import loadDB from '../../config/db'
-import jwt from 'jsonwebtoken'
-import conf from '../../config'
+import signin from '../../config/signin'
+
 const router = express.Router()
 
 const login = async (req, res, next) => {
   const { username, password } = req.body
   const db = await loadDB()
-  const user = db.query(`SELECT * FROM users WHERE username = '${username}'`, (err, results) => {
-    if (err) throw err
-    if (results.length > 0) {
-      const loginStatus = bcrypt.compareSync(password, results[0].password)
-      if (loginStatus) {
-        let token = jwt.sign({ username: username },
-          conf.secretKey,
-          {
-            expiresIn: conf.expiresIn // expires in 24 hours
+  if (username && password) {
+    const user = db.query(`SELECT * FROM users WHERE username = '${username}'`, (err, results) => {
+      if (!err) {
+        if (results.length > 0) {
+          const loginStatus = bcrypt.compareSync(password, results[0].password)
+          if (loginStatus) {
+            const token = signin(username)
+            return res.json({ success: 'login success', username, token })
           }
-        )
-        return res.json({ success: 'login success', username, token })
+        }
       }
-    }
-    return res.json({ error: 'login failed' })
-  })
+      return res.json({ error: 'login failed' })
+    })
+  } else {
+    return res.json({ error: 'required', username, password })
+  }
 }
 
 router.post('/', login)

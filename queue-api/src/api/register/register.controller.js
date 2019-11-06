@@ -1,25 +1,28 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import loadDB from '../../config/db'
+import signin from '../../config/signin'
 
 const router = express.Router()
 
-const login = async (req, res, next) => {
-  const { username, password } = req.body
-  const db = await loadDB()
-  const user = db.query(`SELECT * FROM users WHERE username = '${username}'`, async (err, results) => {
-    if (err) throw err
-    if (results.length > 0) {
-      const saltRounds = 10;
-      const hash = await bcrypt.hash(password, saltRounds).then(hash => hash)
-      const loginStatus = bcrypt.compareSync(password, results[0].password)
-      if (loginStatus) {
-        return res.json({ success: 'login success', username, hash })
+const register = async (req, res, next) => {
+  const { username, password, name, role } = req.body
+  if (username && password && name && role) {
+    const db = await loadDB()
+    const saltRounds = 10;
+    const hash = await bcrypt.hash(password, saltRounds).then(hash => hash)
+    // console.log(`INSERT INTO users (username, password, name, role) VALUES ('${username}', '${hash}', '${name}', '${role}')`)
+    const user = await db.query(`INSERT INTO users (username, password, name, role) VALUES ('${username}', '${hash}', '${name}', '${role}')`, async (err, results) => {
+      if (!err) {
+        const token = signin(username)
+        return res.json({ success: 'register success', token })
       }
-    }
-    return res.json({ error: 'login failed' })
-  })
+      return res.json({ error: 'register failed', username, password, name, role, messageErr: err.sqlMessage })
+    })
+  } else {
+    return res.json({ error: 'required', username, password, name, role })
+  }
 }
 
-router.post('/', login)
+router.post('/', register)
 module.exports = router
