@@ -15,17 +15,18 @@ import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
 
 public class RequestHandler {
-    public static String sendPost(String r_url , JSONObject postDataParams, String authorization) throws Exception {
+
+    public static String sendPost(String r_url , JSONObject postDataParams) throws Exception {
         URL url = new URL(r_url);
+        SharedData sharedData = SharedData.getInstance();
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestProperty ("authorization", authorization);
+        conn.setRequestProperty ("authorization", sharedData.getToken());
         conn.setReadTimeout(200000);
         conn.setConnectTimeout(200000);
         conn.setRequestMethod("POST");
         conn.setDoInput(true);
         conn.setDoOutput(true);
-        System.out.println("yyyyy" + conn.getOutputStream());
         OutputStream os = conn.getOutputStream();
 
         BufferedWriter writer = new BufferedWriter( new OutputStreamWriter(os, "UTF-8"));
