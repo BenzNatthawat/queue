@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText username, password;
     Button btLogin;
+    String token = '';
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
         btLogin = (Button) findViewById(R.id.btLogin);
 
+        if(token === '') {
+          Intent Login = new Intent(MainActivity.this, login.class);
+          startActivity(Login);
+        }
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
