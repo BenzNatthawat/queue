@@ -2,13 +2,18 @@ package com.example.queueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class Login extends AppCompatActivity {
 
@@ -17,6 +22,7 @@ public class Login extends AppCompatActivity {
     Button btLoginUI;
 
     String result;
+    JSONObject objDataResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +32,25 @@ public class Login extends AppCompatActivity {
         usernameUI = (EditText) findViewById(R.id.username);
         passwordUI = (EditText) findViewById(R.id.password);
         btLoginUI = (Button) findViewById(R.id.btLogin);
+        final SharedData sharedData = SharedData.getInstance();
 
         btLoginUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = new RequestAsync(usernameUI.getText().toString(), passwordUI.getText().toString()).execute().get();
-                console.log(result)
-                // sharedData.setToken(result.token);
-                // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                try {
+                    result = new RequestAsync(usernameUI.getText().toString(), passwordUI.getText().toString()).execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    objDataResult = new JSONObject(result);
+                    sharedData.setToken((String) objDataResult.get("token"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
@@ -66,13 +83,6 @@ public class Login extends AppCompatActivity {
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            if(s!=null){
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
             }
         }
     }

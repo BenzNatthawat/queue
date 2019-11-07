@@ -19,7 +19,4 @@ public class SharedData {
     public void setToken(String token) {
         this.token = token;
     }
-
-
-
 }

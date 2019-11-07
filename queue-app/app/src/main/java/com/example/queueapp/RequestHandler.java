@@ -50,10 +50,12 @@ public class RequestHandler {
         }
         return null;
     }
-    public static String sendGet(String url, String authorization) throws IOException {
+    public static String sendGet(String url) throws IOException {
         URL obj = new URL(url);
+        SharedData sharedData = SharedData.getInstance();
+
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestProperty ("authorization", authorization);
+        con.setRequestProperty ("authorization", sharedData.getToken());
         con.setRequestMethod("GET");
         int responseCode = con.getResponseCode();
         System.out.println("Response Code :: " + responseCode);

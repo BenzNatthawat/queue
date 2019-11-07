@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="1"
         android:textSize="90sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/nextQueue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,10 +25,11 @@
         android:ems="10"
         android:hint="comment"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/nextQueue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queue" />
+        app:layout_constraintTop_toBottomOf="@+id/queueNumber"
+        app:layout_constraintVertical_bias="0.666" />
 
     <Button
         android:id="@+id/nextQueue"

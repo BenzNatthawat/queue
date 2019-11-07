@@ -2,7 +2,18 @@ package com.example.queueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     EditText commentUI;
 
     SharedData sharedData = SharedData.getInstance();
-    String token = sharedData.getToken();
     int state = 0;
     JSONObject objDataResult;
     String dataResult;
@@ -28,20 +38,34 @@ public class MainActivity extends AppCompatActivity {
         queueNumberUI = (TextView) findViewById(R.id.queueNumber);
         commentUI = (EditText) findViewById(R.id.comment);
 
-        if(token == "") { // go to login
-          Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
-          Intent Login = new Intent(MainActivity.this, Login.class);
-          startActivityForResult(Login, SECOND_ACTIVITY_REQUEST_CODE);
-        } else { // queue
-          if(state==0) { // get queue first time
-            dataResult = new RequestAsync("GET").execute().get();
-            objDataResult = new JSONObject(dataResult);
-            state++;
-          } else { // next queue
-            dataResult = new RequestAsync("POST", username.getText().toString(), password.getText().toString()).execute().get();
-            objDataResult = new JSONObject(dataResult);
-          }
-        }
+        nextQueueUI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(sharedData.getToken() == "") { // go to login
+                    Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
+                    Intent Login = new Intent(MainActivity.this, Login.class);
+                    startActivityForResult(Login, SECOND_ACTIVITY_REQUEST_CODE);
+                } else { // queue
+                    try {
+                        dataResult = new RequestAsync("POST", commentUI.getText().toString()).execute().get();
+                        Toast.makeText(getApplicationContext(), "dataResult"+dataResult, Toast.LENGTH_LONG).show();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        objDataResult = new JSONObject(dataResult);
+                        System.out.println("objDataResult " + objDataResult);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+
     }
 
     // This method is called when the second activity finishes
@@ -62,36 +86,33 @@ public class MainActivity extends AppCompatActivity {
     public class RequestAsync extends AsyncTask<String,String,String> {
 
         SharedData sharedData = SharedData.getInstance();
-        String username;
-        String password;
+        String comment;
         String method;
 
-        public RequestAsync(String method, String userName, String password) {
-            this.username = userName;
-            this.password = password;
+        public RequestAsync(String method) {
             this.method = method;
         }
 
-        public RequestAsync(String method, String userName, String password) {
-            this.username = userName;
-            this.password = password;
+        public RequestAsync(String method, String comment) {
             this.method = method;
+            this.comment = comment;
         }
 
         @Override
         protected String doInBackground(String... strings) {
             try {
                 //GET Request
-                if(method === 'GET'){
-                  return RequestHandler.sendGet("https://prodevsblog.com/android_get.php");
+                if(method == "GET"){
+                  return RequestHandler.sendGet("http://10.0.2.2:5000/api/queues");
                 }
 
                 // POST Request
-                else if(method === 'POST'){
+                else if(method == "POST"){
                   JSONObject postDataParams = new JSONObject();
                   postDataParams.put("comment", comment);
-                  return RequestHandler.sendPost("http://10.0.2.2:5000/api/create", postDataParams);
+                  return RequestHandler.sendPost("http://10.0.2.2:5000/api/queues/create", postDataParams);
                 }
+                return "error";
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());

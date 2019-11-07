@@ -3,6 +3,14 @@ import loadDB from '../../config/db'
 
 const router = express.Router()
 
+const index = async (req, res, next) => {
+  const db = await loadDB()
+  await db.query(`SELECT queueNumber, technicians__id FROM queues ORDER BY id DESC LIMIT 1`, async (err, results) => {
+    if (err) throw err
+    return res.json(results)
+  })
+}
+
 const create = async (req, res, next) => {
   const { comment } = req.body
   const db = await loadDB()
@@ -23,12 +31,13 @@ const create = async (req, res, next) => {
         technicians__id = results[1][0].id
       }
     }
-    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, ${comment}, ${technicians__id}, ${userId})`, (err, results) => {
+    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, '${comment}', ${technicians__id}, ${userId})`, (err, results) => {
       if (err) throw err
+      console.log(results)
       return res.json(results)
     })
   })
 }
 
-router.post('/create', create)
+router.get('/', index).post('/create', create)
 module.exports = router
