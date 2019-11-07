@@ -12,22 +12,32 @@ import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
 
-    EditText username, password;
-    Button btLogin;
+    EditText usernameUI;
+    EditText passwordUI;
+    Button btLoginUI;
+
+    String result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        btLogin = (Button) findViewById(R.id.btLogin);
+        usernameUI = (EditText) findViewById(R.id.username);
+        passwordUI = (EditText) findViewById(R.id.password);
+        btLoginUI = (Button) findViewById(R.id.btLogin);
 
-        btLogin.setOnClickListener(new View.OnClickListener() {
+        btLoginUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new RequestAsync(username.getText().toString(), password.getText().toString()).execute();
+                result = new RequestAsync(usernameUI.getText().toString(), passwordUI.getText().toString()).execute().get();
+                console.log(result)
+                // sharedData.setToken(result.token);
+                // Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -62,7 +72,6 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             if(s!=null){
-                sharedData.setToken("xxxx");
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
             }
         }
