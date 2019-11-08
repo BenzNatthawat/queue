@@ -31,10 +31,12 @@ const create = async (req, res, next) => {
         technicians__id = results[1][0].id
       }
     }
-    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, '${comment}', ${technicians__id}, ${userId})`, (err, results) => {
+    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, '${comment}', ${technicians__id}, ${userId})`, async (err, results) => {
       if (err) throw err
-      console.log(results)
-      return res.json(results)
+      await db.query(`SELECT queues.queueNumber, queues.comment, users.name FROM queues INNER JOIN users ON users.id = queues.technicians__id WHERE queues.id = ${results.insertId}`, async (err, results) => {
+        if (err) throw err
+        return res.json(results)
+      })
     })
   })
 }

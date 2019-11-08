@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button nextQueueUI;
     TextView queueNumberUI;
+    TextView queueCommentUI;
     EditText commentUI;
 
     SharedData sharedData = SharedData.getInstance();
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         nextQueueUI = (Button) findViewById(R.id.nextQueue);
         queueNumberUI = (TextView) findViewById(R.id.queueNumber);
+        queueCommentUI = (TextView) findViewById(R.id.queueComment);
         commentUI = (EditText) findViewById(R.id.comment);
 
         nextQueueUI.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 } else { // queue
                     try {
                         dataResult = new RequestAsync("POST", commentUI.getText().toString()).execute().get();
-                        Toast.makeText(getApplicationContext(), "dataResult"+dataResult, Toast.LENGTH_LONG).show();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     try {
                         objDataResult = new JSONObject(dataResult);
-                        System.out.println("objDataResult " + objDataResult);
+                        queueNumberUI.setText((String) objDataResult.get("queueNumber"));
+                        queueCommentUI.setText((String) objDataResult.get("comment"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
