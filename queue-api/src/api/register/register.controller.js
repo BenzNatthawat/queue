@@ -15,6 +15,7 @@ const register = async (req, res, next) => {
     const user = await db.query(`INSERT INTO users (username, password, name, role) VALUES ('${username}', '${hash}', '${name}', '${role}')`, async (err, results) => {
       if (!err) {
         const token = signin(username)
+        console.log({ success: 'register success', token })
         return res.json({ success: 'register success', token })
       }
       return res.json({ error: 'register failed', username, password, name, role, messageErr: err.sqlMessage })

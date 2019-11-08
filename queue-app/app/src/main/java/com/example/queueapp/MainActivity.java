@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
     Button nextQueueUI;
     TextView queueNumberUI;
+    TextView queueTechnicianUI;
     TextView queueCommentUI;
     EditText commentUI;
 
     SharedData sharedData = SharedData.getInstance();
-    int state = 0;
     JSONObject objDataResult;
     String dataResult;
 
@@ -38,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
         nextQueueUI = (Button) findViewById(R.id.nextQueue);
         queueNumberUI = (TextView) findViewById(R.id.queueNumber);
         queueCommentUI = (TextView) findViewById(R.id.queueComment);
+        queueTechnicianUI = (TextView) findViewById(R.id.queueTechnician);
         commentUI = (EditText) findViewById(R.id.comment);
+
+        if(sharedData.getToken() == "") { // go to login
+            Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
+            Intent Login = new Intent(MainActivity.this, Login.class);
+            startActivityForResult(Login, SECOND_ACTIVITY_REQUEST_CODE);
+        }
 
         nextQueueUI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,15 +58,17 @@ public class MainActivity extends AppCompatActivity {
                 } else { // queue
                     try {
                         dataResult = new RequestAsync("POST", commentUI.getText().toString()).execute().get();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
                     } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
                     try {
                         objDataResult = new JSONObject(dataResult);
-                        queueNumberUI.setText((String) objDataResult.get("queueNumber"));
-                        queueCommentUI.setText((String) objDataResult.get("comment"));
+                        queueNumberUI.setText("คิวที่: " + objDataResult.get("queueNumber"));
+                        queueTechnicianUI.setText("ช่าง: " + objDataResult.get("name"));
+                        queueCommentUI.setText("หมายเหตุ: " + objDataResult.get("comment"));
+                        commentUI.setText("");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -90,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         SharedData sharedData = SharedData.getInstance();
         String comment;
         String method;
-
+        String result;
         public RequestAsync(String method) {
             this.method = method;
         }
@@ -105,16 +114,16 @@ public class MainActivity extends AppCompatActivity {
             try {
                 //GET Request
                 if(method == "GET"){
-                  return RequestHandler.sendGet("http://10.0.2.2:5000/api/queues");
+                    result = RequestHandler.sendGet("http://10.0.2.2:5000/api/queues");
                 }
 
                 // POST Request
                 else if(method == "POST"){
                   JSONObject postDataParams = new JSONObject();
                   postDataParams.put("comment", comment);
-                  return RequestHandler.sendPost("http://10.0.2.2:5000/api/queues/create", postDataParams);
+                    result =  RequestHandler.sendPost("http://10.0.2.2:5000/api/queues/create", postDataParams);
                 }
-                return "error";
+                return result;
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());

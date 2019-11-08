@@ -18,8 +18,10 @@ const create = async (req, res, next) => {
     if (err) throw err
     const userId = results[2][0].id
     let queueNumber, technicians__id
+    let nextId
     let techniciansObj = JSON.parse(JSON.stringify(results[1]))
-    let nextId = techniciansObj.findIndex((tec) => tec.id == results[0][0].technicians__id)
+    if (technicians__id)
+      nextId = techniciansObj.findIndex((tec) => tec.id == results[0][0].technicians__id)
     if (results[0].length === 0) {
       queueNumber = 1
       technicians__id = results[1][0].id
@@ -35,7 +37,7 @@ const create = async (req, res, next) => {
       if (err) throw err
       await db.query(`SELECT queues.queueNumber, queues.comment, users.name FROM queues INNER JOIN users ON users.id = queues.technicians__id WHERE queues.id = ${results.insertId}`, async (err, results) => {
         if (err) throw err
-        return res.json(results)
+        return res.json(results[0])
       })
     })
   })
