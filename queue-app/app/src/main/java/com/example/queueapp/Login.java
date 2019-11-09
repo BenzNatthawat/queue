@@ -53,11 +53,11 @@ public class Login extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
-                finish();
+                if(sharedData.getToken() !== ""){
+                    finish();
+                }
             }
         });
 

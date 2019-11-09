@@ -65,7 +65,9 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                finish();
+                if(sharedData.getToken() !== ""){
+                    finish();
+                }
             }
         });
     }
