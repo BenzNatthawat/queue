@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     TextView queueNumberUI;
     TextView queueTechnicianUI;
     TextView queueCommentUI;
+    TextView nameUI;
     EditText commentUI;
 
     SharedData sharedData = SharedData.getInstance();
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         queueCommentUI = (TextView) findViewById(R.id.queueComment);
         queueTechnicianUI = (TextView) findViewById(R.id.queueTechnician);
         commentUI = (EditText) findViewById(R.id.comment);
+        nameUI = (TextView) findViewById(R.id.name);
 
         if(sharedData.getToken() == "") { // go to login
             Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         queueNumberUI.setText("คิวที่: " + objDataResult.get("queueNumber"));
                         queueTechnicianUI.setText("ช่าง: " + objDataResult.get("name"));
                         queueCommentUI.setText("หมายเหตุ: " + objDataResult.get("comment"));
+                        nameUI.setText(sharedData.getName());
                         commentUI.setText("");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -75,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
@@ -88,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
 
-              Toast.makeText(getApplicationContext(), "have Token, go to Queue", Toast.LENGTH_LONG).show();
+                nameUI.setText(sharedData.getName());
+                Toast.makeText(getApplicationContext(), "have Token, go to Queue", Toast.LENGTH_LONG).show();
 
             }
         }

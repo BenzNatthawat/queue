@@ -50,12 +50,13 @@ public class Login extends AppCompatActivity {
                 try {
                     objDataResult = new JSONObject(result);
                     sharedData.setToken((String) objDataResult.get("token"));
+                    sharedData.setName((String) objDataResult.get("name"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Intent intent = new Intent();
                 setResult(RESULT_OK, intent);
-                if(sharedData.getToken() !== ""){
+                if(sharedData.getToken() != ""){
                     finish();
                 }
             }
