@@ -12,7 +12,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        def SERVER_URL = "SERVER_URL"
+        debug {
+            buildConfigField "String", SERVER_URL, "\"http://10.0.2.2:5000/api\""
+        }
+
         release {
+            buildConfigField "String", SERVER_URL, "\"http://10.0.2.2:5000/api\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

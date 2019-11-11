@@ -117,14 +117,14 @@ public class MainActivity extends AppCompatActivity {
             try {
                 //GET Request
                 if(method == "GET"){
-                    result = RequestHandler.sendGet("http://10.0.2.2:5000/api/queues");
+                    result = RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues");
                 }
 
                 // POST Request
                 else if(method == "POST"){
                   JSONObject postDataParams = new JSONObject();
                   postDataParams.put("comment", comment);
-                    result =  RequestHandler.sendPost("http://10.0.2.2:5000/api/queues/create", postDataParams);
+                    result =  RequestHandler.sendPost(BuildConfig.SERVER_URL + "/queues/create", postDataParams);
                 }
                 return result;
             }

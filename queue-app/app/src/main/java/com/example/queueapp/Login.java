@@ -53,6 +53,9 @@ public class Login extends AppCompatActivity {
                     objDataResult = new JSONObject(result);
                     sharedData.setToken((String) objDataResult.get("token"));
                     sharedData.setName((String) objDataResult.get("name"));
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -79,11 +82,12 @@ public class Login extends AppCompatActivity {
         if (requestCode == REGISTER_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
 
-                Toast.makeText(getApplicationContext(), "have Token, go to Queue", Toast.LENGTH_LONG).show();
                 if(sharedData.getToken() != "") {
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -102,15 +106,12 @@ public class Login extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                //GET Request
-                //return RequestHandler.sendGet("https://prodevsblog.com/android_get.php");
-
                 // POST Request
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("username", username);
                 postDataParams.put("password", password);
 
-                return RequestHandler.sendPost("http://10.0.2.2:5000/api/login", postDataParams);
+                return RequestHandler.sendPost(BuildConfig.SERVER_URL + "/login", postDataParams);
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());

@@ -70,6 +70,8 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูล", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -107,7 +109,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                 postDataParams.put("name", name);
                 postDataParams.put("role", role);
 
-                return RequestHandler.sendPost("http://10.0.2.2:5000/api/register", postDataParams);
+                return RequestHandler.sendPost(BuildConfig.SERVER_URL + "/register", postDataParams);
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());
