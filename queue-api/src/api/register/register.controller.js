@@ -11,12 +11,10 @@ const register = async (req, res, next) => {
     const db = await loadDB()
     const saltRounds = 10;
     const hash = await bcrypt.hash(password, saltRounds).then(hash => hash)
-    // console.log(`INSERT INTO users (username, password, name, role) VALUES ('${username}', '${hash}', '${name}', '${role}')`)
-    const user = await db.query(`INSERT INTO users (username, password, name, role) VALUES ('${username}', '${hash}', '${name}', '${role}')`, async (err, results) => {
+    const user = await db.query(`INSERT INTO users (username, password, name, role, status) VALUES ('${username}', '${hash}', '${name}', '${role}', 1)`, async (err, results) => {
       if (!err) {
         const token = signin(username)
-        console.log({ success: 'register success', token })
-        return res.json({ success: 'register success', token })
+        return res.json({ success: 'register success', token, name })
       }
       return res.json({ error: 'register failed', username, password, name, role, messageErr: err.sqlMessage })
     })

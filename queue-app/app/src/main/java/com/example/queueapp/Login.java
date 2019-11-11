@@ -18,6 +18,8 @@ import java.util.concurrent.ExecutionException;
 
 public class Login extends AppCompatActivity {
 
+    private static final int REGISTER_ACTIVITY_REQUEST_CODE = 1;
+
     EditText usernameUI;
     EditText passwordUI;
     Button btLoginUI;
@@ -54,11 +56,6 @@ public class Login extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                if(sharedData.getToken() != ""){
-                    finish();
-                }
             }
         });
 
@@ -66,11 +63,31 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "go to register", Toast.LENGTH_LONG).show();
-                Intent Login = new Intent(Login.this, Register.class);
-                startActivity(Login);
-                finish();
+                Intent Register = new Intent(Login.this, Register.class);
+                startActivityForResult(Register, REGISTER_ACTIVITY_REQUEST_CODE);
             }
         });
+    }
+
+    // This method is called when the second activity finishes
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        SharedData sharedData = SharedData.getInstance();
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == REGISTER_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+
+                Toast.makeText(getApplicationContext(), "have Token, go to Queue", Toast.LENGTH_LONG).show();
+                if(sharedData.getToken() != "") {
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+
+            }
+        }
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {

@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity {
 
     // Add a different request code for every activity you are starting from here
-    private static final int SECOND_ACTIVITY_REQUEST_CODE = 0;
+    private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
 
     Button nextQueueUI;
     TextView queueNumberUI;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         if(sharedData.getToken() == "") { // go to login
             Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
             Intent Login = new Intent(MainActivity.this, Login.class);
-            startActivityForResult(Login, SECOND_ACTIVITY_REQUEST_CODE);
+            startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
         }
 
         nextQueueUI.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 if(sharedData.getToken() == "") { // go to login
                     Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
                     Intent Login = new Intent(MainActivity.this, Login.class);
-                    startActivityForResult(Login, SECOND_ACTIVITY_REQUEST_CODE);
+                    startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
                 } else { // queue
                     try {
                         dataResult = new RequestAsync("POST", commentUI.getText().toString()).execute().get();
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // check that it is the SecondActivity with an OK result
-        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
 
                 nameUI.setText(sharedData.getName());

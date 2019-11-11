@@ -60,13 +60,15 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                 }
                 try {
                     objDataResult = new JSONObject(result);
-                    Toast.makeText(getApplicationContext(), "token: " + (String) objDataResult.get("token"), Toast.LENGTH_LONG).show();
                     sharedData.setToken((String) objDataResult.get("token"));
                     sharedData.setName((String) objDataResult.get("name"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
                 if(sharedData.getToken() != ""){
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             }
