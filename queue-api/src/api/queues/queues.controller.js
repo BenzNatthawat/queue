@@ -27,10 +27,11 @@ const create = async (req, res, next) => {
       let nextId
       if (moment(results[0][0].createdAt).format("YYYY-MM-DD") === moment(new Date()).format("YYYY-MM-DD")) {
         nextId = techniciansObj.findIndex((tec) => tec.id == results[0][0].technicians__id)
+        queueNumber = Number(results[0][0].queueNumber) + 1
       } else {
         nextId = 1
+        queueNumber = 1
       }
-      queueNumber = Number(results[0][0].queueNumber) + 1
       if (nextId < techniciansObj.length - 1)
         technicians__id = results[1][nextId + 1].id
       else {

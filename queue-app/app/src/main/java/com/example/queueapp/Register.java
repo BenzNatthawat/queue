@@ -51,27 +51,29 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
         btRegisterUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    result = new Register.RequestAsync(usernameUI.getText().toString(), passwordUI.getText().toString(), nameUI.getText().toString(), role).execute().get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    objDataResult = new JSONObject(result);
-                    sharedData.setToken((String) objDataResult.get("token"));
-                    sharedData.setName((String) objDataResult.get("name"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                if(usernameUI.getText().toString() != "" && passwordUI.getText().toString() != "" && nameUI.getText().toString() != "" && btRegisterUI.getText().toString() != "") {
+                    try {
+                        result = new Register.RequestAsync(usernameUI.getText().toString(), passwordUI.getText().toString(), nameUI.getText().toString(), role).execute().get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        objDataResult = new JSONObject(result);
+                        sharedData.setToken((String) objDataResult.get("token"));
+                        sharedData.setName((String) objDataResult.get("name"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if (sharedData.getToken() != "") {
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูล", Toast.LENGTH_LONG).show();
+                    }
 
-                if(sharedData.getToken() != ""){
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูล", Toast.LENGTH_LONG).show();
                 }
             }
         });
