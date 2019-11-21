@@ -30,7 +30,7 @@ const create = async (req, res, next) => {
           nextId = techniciansObj.findIndex((tec) => tec.id == results[0][0].technicians__id)
           queueNumber = Number(results[0][0].queueNumber) + 1
         } else {
-          nextId = 1
+          nextId = -1
           queueNumber = 1
         }
         if (nextId < techniciansObj.length - 1)
