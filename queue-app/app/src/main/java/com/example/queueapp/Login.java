@@ -57,6 +57,8 @@ public class Login extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                 } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
+
                     e.printStackTrace();
                 }
             }
@@ -65,7 +67,7 @@ public class Login extends AppCompatActivity {
         btRegisterUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "go to register", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "ลงทะเบียน", Toast.LENGTH_LONG).show();
                 Intent Register = new Intent(Login.this, Register.class);
                 startActivityForResult(Register, REGISTER_ACTIVITY_REQUEST_CODE);
             }

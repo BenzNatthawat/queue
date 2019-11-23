@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
 
     Button nextQueueUI;
+    Button logoutUI;
     TextView queueNumberUI;
     TextView queueTechnicianUI;
     TextView queueCommentUI;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         nextQueueUI = (Button) findViewById(R.id.nextQueue);
+        logoutUI = (Button) findViewById(R.id.logout);
         queueNumberUI = (TextView) findViewById(R.id.queueNumber);
         queueCommentUI = (TextView) findViewById(R.id.queueComment);
         queueTechnicianUI = (TextView) findViewById(R.id.queueTechnician);
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         nameUI = (TextView) findViewById(R.id.name);
 
         if(sharedData.getToken() == "") { // go to login
-            Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
             Intent Login = new Intent(MainActivity.this, Login.class);
             startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
         }
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(sharedData.getToken() == "") { // go to login
-                    Toast.makeText(getApplicationContext(), "Don't have Token, go to Login", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
                     Intent Login = new Intent(MainActivity.this, Login.class);
                     startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
                 } else { // queue
@@ -79,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        logoutUI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedData.setToken("");
+                Intent Login = new Intent(MainActivity.this, Login.class);
+                startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
     }
 
     // This method is called when the second activity finishes
@@ -91,15 +102,18 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
 
                 nameUI.setText(sharedData.getName());
-                Toast.makeText(getApplicationContext(), "have Token, go to Queue", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_LONG).show();
 
+            } else {
+                Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
+                Intent Login = new Intent(MainActivity.this, Login.class);
+                startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
             }
         }
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {
 
-        SharedData sharedData = SharedData.getInstance();
         String comment;
         String method;
         String result;
