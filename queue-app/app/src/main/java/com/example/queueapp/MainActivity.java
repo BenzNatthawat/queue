@@ -97,13 +97,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        SharedData sharedData = SharedData.getInstance();
         // check that it is the SecondActivity with an OK result
         if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
-
-                nameUI.setText(sharedData.getName());
-                Toast.makeText(getApplicationContext(), "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_LONG).show();
-
+                if(sharedData.getRole() === 'technician') {
+                    Intent queueTechnician = new Intent(MainActivity.this, queueTechnician.class);
+                    startActivityForResult(queueTechnician, LOGIN_ACTIVITY_REQUEST_CODE);
+                } else {
+                    nameUI.setText(sharedData.getName());
+                    Toast.makeText(getApplicationContext(), "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_LONG).show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
                 Intent Login = new Intent(MainActivity.this, Login.class);

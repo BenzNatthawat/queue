@@ -14,8 +14,8 @@ const login = async (req, res, next) => {
         if (results.length > 0) {
           const loginStatus = bcrypt.compareSync(password, results[0].password)
           if (loginStatus) {
-            const token = signin(username)
-            return res.json({ success: 'login success', token, username: results[0].username, name: results[0].name })
+            const token = signin({ id: results[0].id, username })
+            return res.json({ success: 'login success', token, username: results[0].username, name: results[0].name, role: results[0].role })
           }
         }
       }

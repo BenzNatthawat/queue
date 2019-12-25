@@ -52,5 +52,14 @@ const create = async (req, res, next) => {
   })
 }
 
-router.get('/', index).post('/create', create)
+const show = async (req, res, next) => {
+  const { id } = req.decoded
+  const db = await loadDB()
+  await db.query(`SELECT queueNumber, technicians__id FROM queues WHERE technicians__id = ${id} ORDER BY id DESC LIMIT 4`, async (err, results) => {
+    if (err) throw err
+    return res.json(results)
+  })
+}
+
+router.get('/', index).get('/show', show).post('/create', create)
 module.exports = router

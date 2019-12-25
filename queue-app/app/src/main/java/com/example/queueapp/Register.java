@@ -63,6 +63,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                         objDataResult = new JSONObject(result);
                         sharedData.setToken((String) objDataResult.get("token"));
                         sharedData.setName((String) objDataResult.get("name"));
+                        sharedData.setRole((String) objDataResult.get("role"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
