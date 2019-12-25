@@ -13,7 +13,7 @@ const register = async (req, res, next) => {
     const hash = await bcrypt.hash(password, saltRounds).then(hash => hash)
     const user = await db.query(`INSERT INTO users (username, password, name, role, status) VALUES ('${username}', '${hash}', '${name}', '${role}', 1)`, async (err, results) => {
       if (!err) {
-        const token = signin({ id: results[0].id, username })
+        const token = signin({ id: results.insertId, username })
         return res.json({ success: 'register success', token, name, role })
       }
       return res.json({ error: 'register failed', username, password, name, role, messageErr: err.sqlMessage })
