@@ -21,6 +21,7 @@ const register = async (req, res, next) => {
   } else {
     return res.json({ error: 'required', username, password, name, role })
   }
+  return res
 }
 
 router.post('/', register)
