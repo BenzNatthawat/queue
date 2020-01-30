@@ -2,8 +2,11 @@ package com.example.queueapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -17,9 +20,12 @@ import java.util.concurrent.ExecutionException;
 public class QueueTechnician extends AppCompatActivity {
 
     String result;
+    Button logoutUI;
     JSONArray objDataResult;
+    TextView nameUI;
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
     TextView Text1, Text2, Text3, Text4;
+    SharedData sharedData = SharedData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +36,10 @@ public class QueueTechnician extends AppCompatActivity {
         Text2 = (TextView) findViewById(R.id.text2);
         Text3 = (TextView) findViewById(R.id.text3);
         Text4 = (TextView) findViewById(R.id.text4);
+        logoutUI = (Button) findViewById(R.id.logout);
+        nameUI = (TextView) findViewById(R.id.name);
 
+        nameUI.setText(sharedData.getName());
         new Timer().schedule(new TimerTask() {
             @Override
             public void run(){
@@ -44,8 +53,6 @@ public class QueueTechnician extends AppCompatActivity {
 
                 try {
                     objDataResult = new JSONArray(result);
-                    System.out.println("aaaaaa");
-
                     objQueue1 = objDataResult.getJSONObject(0);
                     objQueue2 = objDataResult.getJSONObject(1);
                     objQueue3 = objDataResult.getJSONObject(2);
@@ -71,6 +78,17 @@ public class QueueTechnician extends AppCompatActivity {
             }
         },0,20000);
 
+
+        logoutUI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedData.setToken("");
+                sharedData.setRole("");
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {

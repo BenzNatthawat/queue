@@ -106,8 +106,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent queueTechnician = new Intent(MainActivity.this, QueueTechnician.class);
                     startActivityForResult(queueTechnician, QUEUETECH_ACTIVITY_REQUEST_CODE);
                 } else {
-                    nameUI.setText(sharedData.getName());
-                    Toast.makeText(getApplicationContext(), "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_LONG).show();
+                    if(sharedData.getToken() == "") { // go to login
+                        Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
+                        Intent Login = new Intent(MainActivity.this, Login.class);
+                        startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
+                    } else {
+                        nameUI.setText(sharedData.getName());
+                        Toast.makeText(getApplicationContext(), "เข้าสู่ระบบสำเร็จ", Toast.LENGTH_LONG).show();
+                    }
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
