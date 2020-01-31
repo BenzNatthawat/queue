@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,8 @@ public class QueueTechnician extends AppCompatActivity {
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
     TextView Text1, Text2, Text3, Text4;
     SharedData sharedData = SharedData.getInstance();
+    Timer t;
+    TimerTask tt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +43,13 @@ public class QueueTechnician extends AppCompatActivity {
         nameUI = (TextView) findViewById(R.id.name);
 
         nameUI.setText(sharedData.getName());
-        new Timer().schedule(new TimerTask() {
+
+        t = new Timer();
+        tt = new TimerTask() {
             @Override
             public void run(){
                 try {
-                    result = new RequestAsync().execute().get();
+                    result = new RequestAsync("show").execute().get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -76,12 +81,23 @@ public class QueueTechnician extends AppCompatActivity {
                 }
 
             }
-        },0,20000);
+        };
+        t.schedule(tt,5000,5000);
 
 
         logoutUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    t.cancel();
+                    tt.cancel();
+                    result = new RequestAsync("logout").execute().get();
+                    Toast.makeText(getApplicationContext(), "logoutUI", Toast.LENGTH_LONG).show();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 sharedData.setToken("");
                 sharedData.setRole("");
                 Intent intent = new Intent();
@@ -92,12 +108,20 @@ public class QueueTechnician extends AppCompatActivity {
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {
+        String path = "";
+        public RequestAsync (String path) {
+            this.path = path;
+        }
         @Override
         protected String doInBackground(String... strings) {
             try {
-                return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues/show");
-            }
-            catch(Exception e){
+                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                if(path.equals("logout")) {
+                    return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/logout");
+                } else {
+                    return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues/show");
+                }
+            } catch(Exception e){
                 return new String("Exception: " + e.getMessage());
             }
         }
