@@ -20,7 +20,7 @@ const create = async (req, res, next) => {
     const userId = results[2][0].id
     let queueNumber, technicians__id
     let techniciansObj = JSON.parse(JSON.stringify(results[1]))
-    if (results[1].length > 1) {
+    if (results[1].length >= 1) {
       if (results[0].length === 0) {
         queueNumber = 1
         technicians__id = results[1][0].id
