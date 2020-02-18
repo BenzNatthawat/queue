@@ -15,8 +15,8 @@ const conf = {
       name: pjson.name,
       version: pjson.version,
     },
-    port: process.env.AUTHENAPP_PORT || 3000,
-    webDomain: process.env.AUTHENAPP_DOMAIN || 'localhost',
+    port: process.env.PORT || 3000,
+    webDomain: process.env.DOMAIN || 'localhost',
     secretKey: process.env.SECRETKEY || 'demo_secret_key',
     expiresIn: '24hr',
     db: {
@@ -34,8 +34,8 @@ const conf = {
       name: pjson.name,
       version: pjson.version,
     },
-    port: process.env.AUTHENAPP_PORT,
-    webDomain: process.env.AUTHENAPP_DOMAIN,
+    port: process.env.PORT,
+    webDomain: process.env.DOMAIN,
     secretKey: process.env.SECRETKEY,
     expiresIn: '24hr',
     db: {
