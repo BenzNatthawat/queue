@@ -15,9 +15,9 @@ const conf = {
       name: pjson.name,
       version: pjson.version,
     },
-    port: process.env.PORT || 3000,
-    webDomain: process.env.DOMAIN || 'localhost',
-    secretKey: process.env.SECRETKEY || 'demo_secret_key',
+    port: process.env.PORT,
+    webDomain: process.env.DOMAIN,
+    secretKey: process.env.SECRETKEY,
     expiresIn: '24hr',
     db: {
       uri: process.env.AUTHENAPP_DB_URI,
@@ -26,7 +26,7 @@ const conf = {
       name: process.env.AUTHENAPP_DB_NAME,
       password: process.env.AUTHENAPP_DB_PASSWORD,
     },
-    apiName: 'api'
+    apiName: 'queue-api'
   },
   production: {
     root: rootPath,
@@ -45,7 +45,7 @@ const conf = {
       name: process.env.AUTHENAPP_DB_NAME,
       password: process.env.AUTHENAPP_DB_PASSWORD,
     },
-    apiName: 'api'
+    apiName: 'queue-api'
   }
 }
 
