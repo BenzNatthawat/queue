@@ -13,13 +13,17 @@ const index = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const { comment } = req.body
+  const { comment, insurance, jobnumber } = req.body
   const db = await loadDB()
+
   await db.query(`SELECT queueNumber, createdAt, technicians__id FROM queues ORDER BY id DESC LIMIT 1; SELECT id, name, role, status FROM users WHERE role = 'technician' AND status = 1; SELECT id FROM users WHERE username = '${req.decoded.username}';`, async (err, results) => {
     if (err) throw err
     const userId = results[2][0].id
     let queueNumber, technicians__id
     let techniciansObj = JSON.parse(JSON.stringify(results[1]))
+    
+    console.log(results)
+
     if (results[1].length >= 1) {
       if (results[0].length === 0) {
         queueNumber = 1
@@ -39,13 +43,14 @@ const create = async (req, res, next) => {
           technicians__id = results[1][0].id
         }
       }
-      await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id) VALUES (${queueNumber}, '${comment}', ${technicians__id}, ${userId})`, async (err, results) => {
-        if (err) throw err
-        await db.query(`SELECT queues.queueNumber, queues.comment, users.name FROM queues INNER JOIN users ON users.id = queues.technicians__id WHERE queues.id = ${results.insertId}`, async (err, results) => {
-          if (err) throw err
-          return res.json(results[0])
-        })
-      })
+      console.log(results)
+      // await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id, insurance, jobnumber) VALUES (${queueNumber}, '${comment}', ${technicians__id}, ${userId}, '${insurance || ''}', '${jobnumber || ''}')`, async (err, results) => {
+      //   if (err) throw err
+      //   await db.query(`SELECT queues.queueNumber, queues.comment, users.name FROM queues INNER JOIN users ON users.id = queues.technicians__id WHERE queues.id = ${results.insertId}`, async (err, results) => {
+      //     if (err) throw err
+      //     return res.json(results[0])
+      //   })
+      // })
     } else {
       return res.json({ error: 'กรุณาเพิ่มช่าง' })
     }
@@ -61,5 +66,17 @@ const show = async (req, res, next) => {
   })
 }
 
-router.get('/', index).get('/show', show).post('/create', create)
+const update = async (req, res, next) => {
+  const { id } = req.decoded
+  const db = await loadDB()
+  await db.query(`SELECT queueNumber, technicians__id FROM queues WHERE technicians__id = ${id} ORDER BY id DESC LIMIT 4`, async (err, results) => {
+    if (err) throw err
+    return res.json(results)
+  })
+}
+
+router.get('/', index)
+  .get('/show', show)
+  .post('/create', create)
+  .post('/:id', update)
 module.exports = router

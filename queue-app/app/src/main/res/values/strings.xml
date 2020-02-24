@@ -6,4 +6,9 @@
         <item>receptionist</item>
         <item>technician</item>
     </string-array>
+
+    <string-array name="insurance">
+        <item>have</item>
+        <item>Dont have</item>
+    </string-array>
 </resources>

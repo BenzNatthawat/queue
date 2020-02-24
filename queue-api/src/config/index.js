@@ -26,7 +26,7 @@ const conf = {
       name: process.env.AUTHENAPP_DB_NAME,
       password: process.env.AUTHENAPP_DB_PASSWORD,
     },
-    apiName: 'queue-api'
+    apiName: process.env.PATH_API
   },
   production: {
     root: rootPath,
@@ -45,7 +45,7 @@ const conf = {
       name: process.env.AUTHENAPP_DB_NAME,
       password: process.env.AUTHENAPP_DB_PASSWORD,
     },
-    apiName: 'queue-api'
+    apiName: process.env.PATH_API
   }
 }
 

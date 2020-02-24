@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2019 at 06:26 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Feb 24, 2020 at 11:28 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,9 +32,12 @@ CREATE TABLE `queues` (
   `id` int(11) NOT NULL,
   `queueNumber` varchar(45) DEFAULT NULL,
   `comment` varchar(45) DEFAULT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `technicians__id` int(11) NOT NULL,
+  `insurance` enum('have','Dont have') NOT NULL DEFAULT 'Dont have',
+  `status` enum('wait','proceed','completed') NOT NULL DEFAULT 'wait',
+  `jobnumber` varchar(20) NOT NULL,
   `users__id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -42,24 +45,9 @@ CREATE TABLE `queues` (
 -- Dumping data for table `queues`
 --
 
-INSERT INTO `queues` (`id`, `queueNumber`, `comment`, `createdAt`, `updatedAt`, `technicians__id`, `users__id`) VALUES
-(6, '1', 'comment', '2019-11-05 16:55:35', '2019-11-05 16:55:35', 12, 11),
-(7, '2', 'comment', '2019-11-05 17:04:31', '2019-11-05 17:04:31', 12, 11),
-(8, '3', 'comment', '2019-11-05 17:04:35', '2019-11-05 17:04:35', 12, 11),
-(9, '4', 'comment', '2019-11-05 17:04:39', '2019-11-05 17:04:39', 12, 11),
-(10, '5', 'comment', '2019-11-05 17:04:52', '2019-11-05 17:04:52', 12, 11),
-(11, '6', 'comment', '2019-11-05 17:04:55', '2019-11-05 17:04:55', 12, 11),
-(12, '7', 'comment', '2019-11-05 17:04:57', '2019-11-05 17:04:57', 12, 11),
-(13, '8', 'comment', '2019-11-05 17:05:38', '2019-11-05 17:05:38', 13, 11),
-(14, '9', 'comment', '2019-11-05 17:05:39', '2019-11-05 17:05:39', 15, 11),
-(15, '10', 'comment', '2019-11-05 17:06:21', '2019-11-05 17:06:21', 12, 11),
-(16, '11', 'comment', '2019-11-05 17:06:22', '2019-11-05 17:06:22', 13, 11),
-(17, '12', 'comment', '2019-11-05 17:06:23', '2019-11-05 17:06:23', 15, 11),
-(18, '13', 'comment', '2019-11-05 17:06:24', '2019-11-05 17:06:24', 12, 11),
-(19, '14', 'comment', '2019-11-05 17:06:25', '2019-11-05 17:06:25', 13, 11),
-(20, '15', 'comment', '2019-11-05 17:06:25', '2019-11-05 17:06:25', 15, 11),
-(21, '16', 'comment', '2019-11-05 17:06:26', '2019-11-05 17:06:26', 12, 11),
-(22, '17', 'comment', '2019-11-05 17:06:27', '2019-11-05 17:06:27', 13, 11);
+INSERT INTO `queues` (`id`, `queueNumber`, `comment`, `createdAt`, `updatedAt`, `technicians__id`, `insurance`, `status`, `jobnumber`, `users__id`) VALUES
+(5, '1', 'hu', '2019-11-09 13:44:15', '2019-11-09 13:44:15', 12, '', 'wait', '', 11),
+(6, '2', 'hu', '2019-11-09 13:44:17', '2019-11-09 13:44:17', 13, '', 'wait', '', 11);
 
 -- --------------------------------------------------------
 
@@ -74,8 +62,8 @@ CREATE TABLE `users` (
   `name` varchar(45) DEFAULT NULL,
   `role` enum('receptionist','technician') DEFAULT NULL,
   `status` tinyint(1) DEFAULT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updatedAt` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -84,10 +72,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `role`, `status`, `createdAt`, `updatedAt`) VALUES
 (11, 'receptionist1', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'receptionist1', 'receptionist', 1, '2019-11-05 16:28:09', '2019-11-05 16:28:09'),
-(12, 'technician1', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician1', 'technician', 1, '2019-11-05 16:28:12', '2019-11-05 16:28:12'),
-(13, 'technician2', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician2', 'technician', 1, '2019-11-05 16:28:15', '2019-11-05 16:28:15'),
+(12, 'technician1', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician1', 'technician', 0, '2020-01-31 06:08:53', '2020-01-31 06:08:53'),
+(13, 'technician2', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician2', 'technician', 0, '2020-01-31 04:20:33', '2020-01-31 04:20:33'),
 (14, 'receptionist2', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'receptionist2', 'receptionist', 1, '2019-11-05 16:28:18', '2019-11-05 16:28:18'),
-(15, 'technician3', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician3', 'technician', 1, '2019-11-05 16:28:21', '2019-11-05 16:28:21');
+(15, 'technician3', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician3', 'technician', 0, '2020-01-31 04:20:36', '2020-01-31 04:20:36'),
+(16, 'receptionist4', '$2b$10$eyts9f9t9mBxNI8RwJEHZuyJPqzIEgWDeJyFZEOni1cnbVoDSvHoy', 'receptionist4', 'receptionist', 1, '2020-01-31 04:20:46', '2020-01-31 04:20:46');
 
 --
 -- Indexes for dumped tables
@@ -115,13 +104,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `queues`
 --
 ALTER TABLE `queues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

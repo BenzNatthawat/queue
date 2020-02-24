@@ -1,7 +1,5 @@
 package com.example.queueapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +15,8 @@ import org.json.JSONObject;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class QueueTechnician extends AppCompatActivity {
 

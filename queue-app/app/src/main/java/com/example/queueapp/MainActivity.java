@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     // Add a different request code for every activity you are starting from here
     private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
@@ -28,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     TextView queueCommentUI;
     TextView nameUI;
     EditText commentUI;
-
+    Spinner insuranceUI;
+    String insurance;
     SharedData sharedData = SharedData.getInstance();
     JSONObject objDataResult;
     String dataResult;
@@ -45,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         queueTechnicianUI = (TextView) findViewById(R.id.queueTechnician);
         commentUI = (EditText) findViewById(R.id.comment);
         nameUI = (TextView) findViewById(R.id.name);
+
+        insuranceUI = findViewById(R.id.insurance);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.insurance, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        insuranceUI.setAdapter(adapter);
+        insuranceUI.setOnItemSelectedListener(this);
 
         if(sharedData.getToken() == "") { // go to login
             Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
@@ -93,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        insurance = text;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
     // This method is called when the second activity finishes
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -128,9 +148,6 @@ public class MainActivity extends AppCompatActivity {
         String comment;
         String method;
         String result;
-        public RequestAsync(String method) {
-            this.method = method;
-        }
 
         public RequestAsync(String method, String comment) {
             this.method = method;

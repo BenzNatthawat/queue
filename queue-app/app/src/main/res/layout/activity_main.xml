@@ -10,63 +10,81 @@
         android:id="@+id/queueNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="0"
         android:textSize="90sp"
-        app:layout_constraintBottom_toTopOf="@+id/queueTechnician"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
 
     <TextView
         android:id="@+id/queueTechnician"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="ช่าง: ____"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/queueComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.897" />
+        app:layout_constraintTop_toBottomOf="@+id/queueNumber" />
 
     <TextView
         android:id="@+id/queueComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="หมายเหตุ: _____"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/comment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.825" />
+        app:layout_constraintTop_toBottomOf="@+id/queueTechnician" />
 
     <EditText
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="หมายเหตุ"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
+        app:layout_constraintTop_toBottomOf="@+id/queueComment" />
+
+    <EditText
+        android:id="@+id/jobnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="มหายเลข 10 หลัก"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <Spinner
+        android:id="@+id/insurance"
+        android:layout_width="411dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="8dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jobnumber" />
 
     <Button
         android:id="@+id/nextQueue"
         android:layout_width="158dp"
         android:layout_height="106dp"
+        android:layout_marginTop="8dp"
         android:text="คิวถัดไป"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.814" />
+        app:layout_constraintTop_toBottomOf="@+id/insurance" />
 
     <TextView
         android:id="@+id/name"
