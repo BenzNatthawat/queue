@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2020 at 11:28 AM
+-- Generation Time: Feb 25, 2020 at 11:17 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -46,8 +46,27 @@ CREATE TABLE `queues` (
 --
 
 INSERT INTO `queues` (`id`, `queueNumber`, `comment`, `createdAt`, `updatedAt`, `technicians__id`, `insurance`, `status`, `jobnumber`, `users__id`) VALUES
-(5, '1', 'hu', '2019-11-09 13:44:15', '2019-11-09 13:44:15', 12, '', 'wait', '', 11),
-(6, '2', 'hu', '2019-11-09 13:44:17', '2019-11-09 13:44:17', 13, '', 'wait', '', 11);
+(1, '1', 'comment2', '2020-02-25 08:55:50', '2020-02-25 08:55:50', 12, 'Dont have', 'completed', '15951951959', 11),
+(2, '2', 'comment2', '2020-02-25 08:54:20', '2020-02-25 08:54:20', 13, 'Dont have', 'wait', '15951951959', 11),
+(3, '3', 'comment2', '2020-02-25 08:54:22', '2020-02-25 08:54:22', 15, 'Dont have', 'wait', '15951951959', 11),
+(4, '4', 'comment2', '2020-02-25 08:56:21', '2020-02-25 08:56:21', 12, 'Dont have', 'completed', '15951951959', 11),
+(5, '5', 'comment2', '2020-02-25 08:55:22', '2020-02-25 08:55:22', 13, 'Dont have', 'wait', '15951951959', 11),
+(6, '6', 'comment2', '2020-02-25 08:55:29', '2020-02-25 08:55:29', 15, 'Dont have', 'wait', '15951951959', 11),
+(7, '7', 'comment2', '2020-02-25 08:57:30', '2020-02-25 08:57:30', 12, 'Dont have', 'completed', '15951951959', 11),
+(8, '8', 'comment2', '2020-02-25 08:56:26', '2020-02-25 08:56:26', 13, 'Dont have', 'wait', '15951951959', 11),
+(9, '9', 'comment2', '2020-02-25 10:11:35', '2020-02-25 10:11:35', 12, 'Dont have', 'completed', '15951951959', 11),
+(10, '10', 'comment2', '2020-02-25 08:57:34', '2020-02-25 08:57:34', 12, 'Dont have', 'wait', '15951951959', 11),
+(11, '11', 'comment2', '2020-02-25 08:57:35', '2020-02-25 08:57:35', 12, 'Dont have', 'wait', '15951951959', 11),
+(12, '12', 'comment2', '2020-02-25 08:57:37', '2020-02-25 08:57:37', 15, 'Dont have', 'wait', '15951951959', 11),
+(13, '13', 'comment2', '2020-02-25 10:09:22', '2020-02-25 10:09:22', 12, 'have', 'completed', '15951951959', 11),
+(14, '14', 'comment2', '2020-02-25 08:57:39', '2020-02-25 08:57:39', 13, 'Dont have', 'wait', '15951951959', 11),
+(15, '15', 'comment2', '2020-02-25 08:57:40', '2020-02-25 08:57:40', 15, 'Dont have', 'wait', '15951951959', 11),
+(16, '16', 'comment2', '2020-02-25 09:01:48', '2020-02-25 09:01:48', 12, 'Dont have', 'wait', '15951951959', 11),
+(17, '17', 'comment2', '2020-02-25 09:01:49', '2020-02-25 09:01:49', 13, 'Dont have', 'wait', '15951951959', 11),
+(18, '18', 'comment2', '2020-02-25 09:01:50', '2020-02-25 09:01:50', 15, 'Dont have', 'wait', '15951951959', 11),
+(19, '19', 'comment2', '2020-02-25 09:01:51', '2020-02-25 09:01:51', 12, 'Dont have', 'wait', '15951951959', 11),
+(20, '20', 'comment2', '2020-02-25 09:03:05', '2020-02-25 09:03:05', 13, 'Dont have', 'wait', '15951951959', 11),
+(21, '21', 'comment2', '2020-02-25 09:03:07', '2020-02-25 09:03:07', 15, 'Dont have', 'wait', '15951951959', 11);
 
 -- --------------------------------------------------------
 
@@ -72,10 +91,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `role`, `status`, `createdAt`, `updatedAt`) VALUES
 (11, 'receptionist1', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'receptionist1', 'receptionist', 1, '2019-11-05 16:28:09', '2019-11-05 16:28:09'),
-(12, 'technician1', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician1', 'technician', 0, '2020-01-31 06:08:53', '2020-01-31 06:08:53'),
-(13, 'technician2', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician2', 'technician', 0, '2020-01-31 04:20:33', '2020-01-31 04:20:33'),
+(12, 'technician1', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician1', 'technician', 1, '2020-02-25 08:54:00', '2020-02-25 08:54:00'),
+(13, 'technician2', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician2', 'technician', 1, '2020-02-25 07:53:51', '2020-02-25 07:53:51'),
 (14, 'receptionist2', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'receptionist2', 'receptionist', 1, '2019-11-05 16:28:18', '2019-11-05 16:28:18'),
-(15, 'technician3', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician3', 'technician', 0, '2020-01-31 04:20:36', '2020-01-31 04:20:36'),
+(15, 'technician3', '$2b$10$2U6dPyms1ppqU9TlUpJXL.SF43rRjE4vUbCiOdu0.T6vpxAf4XwSm', 'technician3', 'technician', 1, '2020-02-25 07:53:48', '2020-02-25 07:53:48'),
 (16, 'receptionist4', '$2b$10$eyts9f9t9mBxNI8RwJEHZuyJPqzIEgWDeJyFZEOni1cnbVoDSvHoy', 'receptionist4', 'receptionist', 1, '2020-01-31 04:20:46', '2020-01-31 04:20:46');
 
 --
@@ -104,7 +123,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `queues`
 --
 ALTER TABLE `queues`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `users`
