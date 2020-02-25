@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".QueueTechnician"></activity>
+        <activity android:name=".queueShow"></activity>
+        <activity android:name=".QueueTechnician" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">

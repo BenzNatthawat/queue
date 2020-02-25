@@ -11,4 +11,10 @@
         <item>have</item>
         <item>Dont have</item>
     </string-array>
+
+    <string-array name="status">
+        <item>wait</item>
+        <item>proceed</item>
+        <item>completed</item>
+    </string-array>
 </resources>

@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class QueueTechnician extends AppCompatActivity {
 
+    Button queueBtn;
     String result;
     Button logoutUI;
     JSONArray objDataResult;
@@ -35,7 +36,7 @@ public class QueueTechnician extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue_technician);
 
-        Text1 = (TextView) findViewById(R.id.text1);
+        queueBtn = (Button) findViewById(R.id.queueBtn);
         Text2 = (TextView) findViewById(R.id.text2);
         Text3 = (TextView) findViewById(R.id.text3);
         Text4 = (TextView) findViewById(R.id.text4);
@@ -84,6 +85,12 @@ public class QueueTechnician extends AppCompatActivity {
         };
         t.schedule(tt,5000,5000);
 
+        queueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         logoutUI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +122,6 @@ public class QueueTechnician extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
             try {
-                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
                 if(path.equals("logout")) {
                     return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/logout");
                 } else {
