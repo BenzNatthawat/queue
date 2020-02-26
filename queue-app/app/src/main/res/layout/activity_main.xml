@@ -66,12 +66,11 @@
 
     <Spinner
         android:id="@+id/insurance"
-        android:layout_width="411dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="257dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobnumber" />
 

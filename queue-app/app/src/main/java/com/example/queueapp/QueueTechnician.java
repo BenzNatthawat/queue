@@ -20,13 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class QueueTechnician extends AppCompatActivity {
 
+    int idQueue;
     Button queueBtn;
     String result;
     Button logoutUI;
     JSONArray objDataResult;
     TextView nameUI;
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
-    TextView Text1, Text2, Text3, Text4;
+    TextView Text2, Text3, Text4;
     SharedData sharedData = SharedData.getInstance();
     Timer t;
     TimerTask tt;
@@ -67,7 +68,8 @@ public class QueueTechnician extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                Text1.setText(""+objQueue1.get("queueNumber"));
+                                idQueue = Integer.parseInt(objQueue1.get("id").toString());
+                                queueBtn.setText(""+objQueue1.get("queueNumber"));
                                 Text2.setText(""+objQueue2.get("queueNumber"));
                                 Text3.setText(""+objQueue3.get("queueNumber"));
                                 Text4.setText(""+objQueue4.get("queueNumber"));
@@ -88,7 +90,9 @@ public class QueueTechnician extends AppCompatActivity {
         queueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent queueShow = new Intent(QueueTechnician.this, queueShow.class);
+                queueShow.putExtra("id", idQueue);
+                startActivity(queueShow);
             }
         });
 
@@ -125,7 +129,7 @@ public class QueueTechnician extends AppCompatActivity {
                 if(path.equals("logout")) {
                     return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/logout");
                 } else {
-                    return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues/show");
+                    return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues");
                 }
             } catch(Exception e){
                 return new String("Exception: " + e.getMessage());

@@ -5,10 +5,18 @@ import moment from 'moment'
 const router = express.Router()
 
 const index = async (req, res, next) => {
+  const { id } = req.decoded
   const db = await loadDB()
-  await db.query(`SELECT queueNumber, technicians__id FROM queues ORDER BY id DESC LIMIT 1`, async (err, results) => {
+  await db.query(`
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance FROM queues 
+  WHERE technicians__id = ${id} AND status = 'wait'
+  ORDER BY insurance, createdAt, id LIMIT 4;
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance FROM queues 
+  WHERE technicians__id = ${id} AND status = 'proceed' LIMIT 1;
+  `, async (err, results) => {
     if (err) throw err
-    return res.json(results)
+    results[0].unshift(...results[1])
+    return res.json(results[0])
   })
 }
 
@@ -59,15 +67,11 @@ const create = async (req, res, next) => {
 }
 
 const show = async (req, res, next) => {
-  const { id } = req.decoded
+  const { id } = req.params
   const db = await loadDB()
-  await db.query(`
-    SELECT id, queueNumber, technicians__id, status, insurance FROM queues 
-    WHERE technicians__id = 12 AND status = 'wait'
-    ORDER BY insurance, id LIMIT 4
-  `, async (err, results) => {
+  await db.query(`SELECT * FROM queues WHERE id = ${id}`, async (err, results) => {
     if (err) throw err
-    return res.json(results)
+    return res.json(results[0])
   })
 }
 
@@ -82,7 +86,7 @@ const update = async (req, res, next) => {
 }
 
 router.get('/', index)
-  .get('/show', show)
+  .get('/:id', show)
   .post('/create', create)
   .post('/:id', update)
 module.exports = router

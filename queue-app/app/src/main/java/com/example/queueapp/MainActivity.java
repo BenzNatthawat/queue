@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView queueCommentUI;
     TextView nameUI;
     EditText commentUI;
+    EditText jobnumberUI;
     Spinner insuranceUI;
     String insurance;
     SharedData sharedData = SharedData.getInstance();
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         queueTechnicianUI = (TextView) findViewById(R.id.queueTechnician);
         commentUI = (EditText) findViewById(R.id.comment);
         nameUI = (TextView) findViewById(R.id.name);
+        jobnumberUI = (EditText) findViewById(R.id.jobnumber);
 
         insuranceUI = findViewById(R.id.insurance);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.insurance, android.R.layout.simple_spinner_item);
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     startActivityForResult(Login, LOGIN_ACTIVITY_REQUEST_CODE);
                 } else { // queue
                     try {
-                        dataResult = new RequestAsync("POST", commentUI.getText().toString()).execute().get();
+                        dataResult = new RequestAsync("POST", commentUI.getText().toString(), jobnumberUI.getText().toString(), insurance).execute().get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         queueCommentUI.setText("หมายเหตุ: " + objDataResult.get("comment"));
                         nameUI.setText(sharedData.getName());
                         commentUI.setText("");
+                        jobnumberUI.setText("");
+                        insuranceUI.setSelection(0);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -145,13 +149,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public class RequestAsync extends AsyncTask<String,String,String> {
 
-        String comment;
+        String comment, insurance, jobnumber;
         String method;
         String result;
 
-        public RequestAsync(String method, String comment) {
+        public RequestAsync(String method, String comment, String jobnumber, String insurance) {
             this.method = method;
             this.comment = comment;
+            this.insurance = insurance;
+            this.jobnumber = jobnumber;
         }
 
         @Override
@@ -165,7 +171,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 // POST Request
                 else if(method == "POST"){
                   JSONObject postDataParams = new JSONObject();
-                  postDataParams.put("comment", comment);
+                    postDataParams.put("comment", comment);
+                    postDataParams.put("insurance", insurance);
+                    postDataParams.put("jobnumber", jobnumber);
                     result =  RequestHandler.sendPost(BuildConfig.SERVER_URL + "/queues/create", postDataParams);
                 }
                 return result;

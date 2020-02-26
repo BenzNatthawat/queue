@@ -98,8 +98,6 @@ public class Login extends AppCompatActivity {
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {
-
-        SharedData sharedData = SharedData.getInstance();
         String username, password;
         public RequestAsync(String userName, String password) {
             this.username = userName;
