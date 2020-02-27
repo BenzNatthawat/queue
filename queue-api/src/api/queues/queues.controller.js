@@ -56,7 +56,7 @@ const create = async (req, res, next) => {
       return res.json({ error: 'กรุณาเพิ่มช่าง' })
     }
 
-    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id, insurance, jobnumber) VALUES (${queueNumber}, '${comment}', ${techniciansId}, ${id}, '${insurance || ''}', '${jobnumber || ''}')`, async (err, results) => {
+    await db.query(`INSERT INTO queues (queueNumber, comment, technicians__id, users__id, insurance, jobnumber, status) VALUES (${queueNumber}, '${comment}', ${techniciansId}, ${id}, '${insurance || ''}', '${jobnumber || ''}', 'wait')`, async (err, results) => {
       if (err) throw err
       await db.query(`SELECT queues.queueNumber, queues.comment, users.name FROM queues INNER JOIN users ON users.id = queues.technicians__id WHERE queues.id = ${results.insertId}`, async (err, results) => {
         if (err) throw err
