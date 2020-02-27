@@ -60,19 +60,41 @@ public class QueueTechnician extends AppCompatActivity {
 
                 try {
                     objDataResult = new JSONArray(result);
-                    objQueue1 = objDataResult.getJSONObject(0);
-                    objQueue2 = objDataResult.getJSONObject(1);
-                    objQueue3 = objDataResult.getJSONObject(2);
-                    objQueue4 = objDataResult.getJSONObject(3);
+                    System.out.println("xxxxxxxx");
+                    System.out.println(objDataResult);
+                    for(int i = 0; i < objDataResult.length(); i++) {
+                        switch (i) {
+                            case 0:  objQueue1 = objDataResult.getJSONObject(0);
+                                break;
+                            case 1:  objQueue2 = objDataResult.getJSONObject(1);
+                                break;
+                            case 2:  objQueue3 = objDataResult.getJSONObject(2);
+                                break;
+                            case 3:  objQueue4 = objDataResult.getJSONObject(3);
+                                break;
+                        }
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                idQueue = Integer.parseInt(objQueue1.get("id").toString());
-                                queueBtn.setText(""+objQueue1.get("queueNumber"));
-                                Text2.setText(""+objQueue2.get("queueNumber"));
-                                Text3.setText(""+objQueue3.get("queueNumber"));
-                                Text4.setText(""+objQueue4.get("queueNumber"));
+
+                                Text4.setText("0");
+                                Text3.setText("0");
+                                Text2.setText("0");
+                                queueBtn.setText("0");
+                                idQueue = 0;
+
+                                switch (objDataResult.length() - 1) {
+                                    case 3:  Text4.setText(""+objQueue4.get("queueNumber"));
+                                    case 2:  Text3.setText(""+objQueue3.get("queueNumber"));
+                                    case 1:  Text2.setText(""+objQueue2.get("queueNumber"));
+                                    case 0:  {
+                                        queueBtn.setText(""+objQueue1.get("queueNumber"));
+                                        idQueue = Integer.parseInt(objQueue1.get("id").toString());
+                                    }
+                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
