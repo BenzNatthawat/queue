@@ -14,7 +14,9 @@ const login = async (req, res, next) => {
       const user = await db.query(`SELECT * FROM users WHERE username = '${username}'`, async (err, results) => {
         if (err) throw err
         if (results.length > 0) {
+          console.log(results)
           const loginStatus = bcrypt.compareSync(password, results[0].password)
+          console.log(loginStatus)
           if (loginStatus) {
             const resultsLogin = results[0]
             const user = await db.query(`UPDATE users SET status=1 WHERE id=${resultsLogin.id}`, async (err, results) => {
