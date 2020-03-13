@@ -23,7 +23,7 @@ const register = async (req, res, next) => {
     } else {
       return res.json({ error: 'required', username, password, name, role })
     }
-    return res
+    return res.json({ error: 'required' })
   } catch (err) {
     console.log(err)
   }
