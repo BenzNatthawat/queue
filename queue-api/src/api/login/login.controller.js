@@ -28,7 +28,6 @@ const login = async (req, res, next) => {
     } else {
       return res.json({ error: 'required', username, password })
     }
-    return res.json({ error: 'required' })
   } catch (err) {
     console.log(err)
   }
