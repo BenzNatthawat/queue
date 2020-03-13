@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         def SERVER_URL = "SERVER_URL"
-        def ip = "\"http://157.230.243.171:9902/queue-api\""
+        def ip = "\"http://157.230.243.171/queue-api\""
         debug {
             buildConfigField "String", SERVER_URL, ip
         }
