@@ -36,6 +36,7 @@
         app:layout_constraintVertical_bias="0.089" />
 
     <Button
+        android:elevation="0dp"
         android:id="@+id/queueBtn"
         android:layout_width="227dp"
         android:layout_height="332dp"
@@ -93,7 +94,7 @@
         android:id="@+id/text3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="38dp"
         android:background="#BEFFA9"
         android:gravity="center"
         android:padding="10dp"
@@ -136,5 +137,49 @@
         android:drawableBottom="@android:drawable/ic_lock_power_off"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_comment1"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/queueBtn"
+        app:layout_constraintEnd_toEndOf="@+id/queueBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+
+    <TextView
+        android:id="@+id/tv_comment2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/text2"
+        app:layout_constraintEnd_toEndOf="@+id/text2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+
+    <TextView
+        android:id="@+id/tv_comment3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/text3"
+        app:layout_constraintEnd_toEndOf="@+id/text3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+
+    <TextView
+        android:id="@+id/tv_comment4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/text4"
+        app:layout_constraintEnd_toEndOf="@+id/text4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

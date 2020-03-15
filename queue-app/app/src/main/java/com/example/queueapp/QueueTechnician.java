@@ -26,7 +26,7 @@ public class QueueTechnician extends AppCompatActivity {
     String result;
     Button logoutUI;
     JSONArray objDataResult;
-    TextView nameUI;
+    TextView nameUI, tv_comment1, tv_comment2, tv_comment3, tv_comment4;
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
     Button Text2, Text3, Text4;
     SharedData sharedData = SharedData.getInstance();
@@ -44,7 +44,10 @@ public class QueueTechnician extends AppCompatActivity {
         Text4 = (Button) findViewById(R.id.text4);
         logoutUI = (Button) findViewById(R.id.logout);
         nameUI = (TextView) findViewById(R.id.name);
-
+        tv_comment1 = (TextView) findViewById(R.id.tv_comment1);
+        tv_comment2 = (TextView) findViewById(R.id.tv_comment2);
+        tv_comment3 = (TextView) findViewById(R.id.tv_comment3);
+        tv_comment4 = (TextView) findViewById(R.id.tv_comment4);
         nameUI.setText(sharedData.getName());
 
         t = new Timer();
@@ -88,6 +91,7 @@ public class QueueTechnician extends AppCompatActivity {
                                 switch (objDataResult.length() - 1) {
                                     case 3:  {
                                         Text4.setText(""+objQueue4.get("queueNumber"));
+                                        tv_comment4.setText(""+ objQueue4.get("comment"));
                                         if(objQueue4.get("insurance").equals("have")) {
                                             Text4.setBackgroundColor(Color.RED);
                                         } else {
@@ -96,7 +100,8 @@ public class QueueTechnician extends AppCompatActivity {
                                     }
                                     case 2:  {
                                         Text3.setText(""+objQueue3.get("queueNumber"));
-                                        if(objQueue3.get("insurance").equals("have")) {
+                                        tv_comment3.setText(""+ objQueue3.get("comment"));
+                                        if(objQueue3.get("insurance").equals("have") ) {
                                             Text3.setBackgroundColor(Color.RED);
                                         } else {
                                             Text3.setBackgroundColor(Color.GREEN);
@@ -104,6 +109,7 @@ public class QueueTechnician extends AppCompatActivity {
                                     }
                                     case 1:  {
                                         Text2.setText(""+objQueue2.get("queueNumber"));
+                                        tv_comment2.setText(""+ objQueue2.get("comment"));
                                         if(objQueue2.get("insurance").equals("have")) {
                                             Text2.setBackgroundColor(Color.RED);
                                         } else {
@@ -111,9 +117,8 @@ public class QueueTechnician extends AppCompatActivity {
                                         }
                                     }
                                     case 0:  {
-                                        System.out.println("xxxxxxxxxxxxxxxx");
-                                        System.out.println(objQueue1);
-                                        queueBtn.setText(""+objQueue1.get("queueNumber"));
+                                        queueBtn.setText(""+objQueue1.get("queueNumber") );
+                                        tv_comment1.setText(""+ objQueue1.get("comment"));
                                         idQueue = Integer.parseInt(objQueue1.get("id").toString());
                                         if(objQueue1.get("insurance").equals("have")) {
                                             queueBtn.setBackgroundColor(Color.RED);
