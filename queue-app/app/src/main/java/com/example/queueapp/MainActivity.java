@@ -110,7 +110,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        insurance = text;
+        if(text.equals("มีประกัน")) {
+            insurance = "have";
+        } else {
+            insurance = "Dont have";
+        }
     }
 
     @Override

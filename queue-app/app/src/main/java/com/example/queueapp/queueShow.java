@@ -97,7 +97,13 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        status = text;
+        if(text.equals("รอคิว")) {
+            status = "wait";
+        } else if(text.equals("กำลังดำเนินการ")){
+            status = "proceed";
+        } else {
+            status = "completed";
+        }
     }
 
     @Override

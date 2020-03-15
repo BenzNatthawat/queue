@@ -83,7 +83,11 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String text = parent.getItemAtPosition(position).toString();
-        role = text;
+        if(text.equals("พนักงานต้อนรับ")){
+            role = "receptionist";
+        } else {
+            role = "technician";
+        }
     }
 
     @Override

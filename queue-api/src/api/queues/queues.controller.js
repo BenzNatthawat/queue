@@ -8,10 +8,10 @@ const index = async (req, res, next) => {
   const { id } = req.decoded
   const db = await loadDB()
   await db.query(`
-  SELECT id, queueNumber, technicians__id, createdAt, status, insurance FROM queues 
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment FROM queues 
   WHERE technicians__id = ${id} AND status = 'wait'
   ORDER BY insurance, createdAt, id LIMIT 4;
-  SELECT id, queueNumber, technicians__id, createdAt, status, insurance FROM queues 
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment FROM queues 
   WHERE technicians__id = ${id} AND status = 'proceed' LIMIT 1;
   `, async (err, results) => {
     if (err) throw err

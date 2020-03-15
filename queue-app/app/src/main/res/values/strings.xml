@@ -3,18 +3,28 @@
     <string name="app_name">ระบบคิว ซัมซุง</string>
 
     <string-array name="role">
-        <item>receptionist</item>
-        <item>technician</item>
+        <!--<item>receptionist</item>-->
+        <!--<item>technician</item>-->
+
+        <item>พนักงานต้อนรับ</item>
+        <item>ช่าง</item>
     </string-array>
 
     <string-array name="insurance">
-        <item>Dont have</item>
-        <item>have</item>
+        <!--<item>Dont have</item>-->
+        <!--<item>have</item>-->
+
+        <item>ไม่มีประกัน</item>
+        <item>มีประกัน</item>
     </string-array>
 
     <string-array name="status">
-        <item>wait</item>
-        <item>proceed</item>
-        <item>completed</item>
+        <!--<item>wait</item>-->
+        <!--<item>proceed</item>-->
+        <!--<item>completed</item>-->
+
+        <item>รอคิว</item>
+        <item>กำลังดำเนินการ</item>
+        <item>เสร็จ</item>
     </string-array>
 </resources>

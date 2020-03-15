@@ -1,6 +1,7 @@
 package com.example.queueapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +28,7 @@ public class QueueTechnician extends AppCompatActivity {
     JSONArray objDataResult;
     TextView nameUI;
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
-    TextView Text2, Text3, Text4;
+    Button Text2, Text3, Text4;
     SharedData sharedData = SharedData.getInstance();
     Timer t;
     TimerTask tt;
@@ -38,9 +39,9 @@ public class QueueTechnician extends AppCompatActivity {
         setContentView(R.layout.activity_queue_technician);
 
         queueBtn = (Button) findViewById(R.id.queueBtn);
-        Text2 = (TextView) findViewById(R.id.text2);
-        Text3 = (TextView) findViewById(R.id.text3);
-        Text4 = (TextView) findViewById(R.id.text4);
+        Text2 = (Button) findViewById(R.id.text2);
+        Text3 = (Button) findViewById(R.id.text3);
+        Text4 = (Button) findViewById(R.id.text4);
         logoutUI = (Button) findViewById(R.id.logout);
         nameUI = (TextView) findViewById(R.id.name);
 
@@ -60,7 +61,6 @@ public class QueueTechnician extends AppCompatActivity {
 
                 try {
                     objDataResult = new JSONArray(result);
-                    System.out.println("xxxxxxxx");
                     System.out.println(objDataResult);
                     for(int i = 0; i < objDataResult.length(); i++) {
                         switch (i) {
@@ -86,12 +86,40 @@ public class QueueTechnician extends AppCompatActivity {
                                 idQueue = 0;
 
                                 switch (objDataResult.length() - 1) {
-                                    case 3:  Text4.setText(""+objQueue4.get("queueNumber"));
-                                    case 2:  Text3.setText(""+objQueue3.get("queueNumber"));
-                                    case 1:  Text2.setText(""+objQueue2.get("queueNumber"));
+                                    case 3:  {
+                                        Text4.setText(""+objQueue4.get("queueNumber"));
+                                        if(objQueue4.get("insurance").equals("have")) {
+                                            Text4.setBackgroundColor(Color.RED);
+                                        } else {
+                                            Text4.setBackgroundColor(Color.GREEN);
+                                        }
+                                    }
+                                    case 2:  {
+                                        Text3.setText(""+objQueue3.get("queueNumber"));
+                                        if(objQueue3.get("insurance").equals("have")) {
+                                            Text3.setBackgroundColor(Color.RED);
+                                        } else {
+                                            Text3.setBackgroundColor(Color.GREEN);
+                                        }
+                                    }
+                                    case 1:  {
+                                        Text2.setText(""+objQueue2.get("queueNumber"));
+                                        if(objQueue2.get("insurance").equals("have")) {
+                                            Text2.setBackgroundColor(Color.RED);
+                                        } else {
+                                            Text2.setBackgroundColor(Color.GREEN);
+                                        }
+                                    }
                                     case 0:  {
+                                        System.out.println("xxxxxxxxxxxxxxxx");
+                                        System.out.println(objQueue1);
                                         queueBtn.setText(""+objQueue1.get("queueNumber"));
                                         idQueue = Integer.parseInt(objQueue1.get("id").toString());
+                                        if(objQueue1.get("insurance").equals("have")) {
+                                            queueBtn.setBackgroundColor(Color.RED);
+                                        } else {
+                                            queueBtn.setBackgroundColor(Color.GREEN);
+                                        }
                                     }
                                 }
 
