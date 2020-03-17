@@ -53,15 +53,32 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
             result = new RequestAsync("GET", id).execute().get();
             objDataResult = new JSONObject(result);
 
-            queueNumbertv.setText("หมายเลขคิว" +objDataResult.getString("queueNumber"));
-            commenttv.setText("หมายเหตุ : "+objDataResult.getString("comment"));
+            System.out.println("xxxxxxxxxx");
+            System.out.println(objDataResult);
+            queueNumbertv.setText("หมายเลขคิว " + objDataResult.getString("queueNumber"));
+            if(!objDataResult.getString("comment").equals("")){
+                commenttv.setText("หมายเหตุ : "+ objDataResult.getString("comment"));
+            } else {
+                commenttv.setText("หมายเหตุ : ไม่มี");
+            }
             if(objDataResult.getString("insurance").equals("have")) {
               insurancetv.setText("มีสิทธิประกัน");
             } else {
               insurancetv.setText("ไม่มีสิทธิประกัน");
             }
-            statustv.setText("สถานะ : "+objDataResult.getString("status"));
-            jobnumbertv.setText("หมายเลขงาน : "+objDataResult.getString("jobnumber"));
+            if(objDataResult.getString("status").equals("wait")) {
+                statustv.setText("สถานะ : รอคิว");
+            } else if(objDataResult.getString("status").equals("proceed")) {
+                statustv.setText("สถานะ : ดำเนินงาน");
+            } else {
+                statustv.setText("สถานะ : เสร็จสิ้น");
+            }
+
+            if(!objDataResult.getString("jobnumber").equals("")) {
+                jobnumbertv.setText("หมายเลขงาน : " + objDataResult.getString("jobnumber"));
+            } else {
+                jobnumbertv.setText("หมายเลขงาน : ไม่มี");
+            }
 
             if(objDataResult.getString("status").equals("completed")) {
                 statusUI.setSelection(2);
