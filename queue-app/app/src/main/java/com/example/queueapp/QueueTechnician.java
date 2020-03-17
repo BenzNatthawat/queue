@@ -21,14 +21,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class QueueTechnician extends AppCompatActivity {
 
-    int idQueue;
-    Button queueBtn;
+    int idQueue1, idQueue2, idQueue3, idQueue4;
     String result;
     Button logoutUI;
     JSONArray objDataResult;
     TextView nameUI, tv_comment1, tv_comment2, tv_comment3, tv_comment4;
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
-    Button Text2, Text3, Text4;
+    Button queueBtn1, queueBtn2, queueBtn3, queueBtn4;
     SharedData sharedData = SharedData.getInstance();
     Timer t;
     TimerTask tt;
@@ -38,10 +37,10 @@ public class QueueTechnician extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue_technician);
 
-        queueBtn = (Button) findViewById(R.id.queueBtn);
-        Text2 = (Button) findViewById(R.id.text2);
-        Text3 = (Button) findViewById(R.id.text3);
-        Text4 = (Button) findViewById(R.id.text4);
+        queueBtn1 = (Button) findViewById(R.id.queueBtn);
+        queueBtn2 = (Button) findViewById(R.id.text2);
+        queueBtn3 = (Button) findViewById(R.id.text3);
+        queueBtn4 = (Button) findViewById(R.id.text4);
         logoutUI = (Button) findViewById(R.id.logout);
         nameUI = (TextView) findViewById(R.id.name);
         tv_comment1 = (TextView) findViewById(R.id.tv_comment1);
@@ -82,48 +81,51 @@ public class QueueTechnician extends AppCompatActivity {
                         public void run() {
                             try {
 
-                                Text4.setText("0");
-                                Text3.setText("0");
-                                Text2.setText("0");
-                                queueBtn.setText("0");
-                                idQueue = 0;
+                                queueBtn4.setText("0");
+                                queueBtn3.setText("0");
+                                queueBtn2.setText("0");
+                                queueBtn1.setText("0");
+                                idQueue1 = 0;
 
                                 switch (objDataResult.length() - 1) {
                                     case 3:  {
-                                        Text4.setText(""+objQueue4.get("queueNumber"));
+                                        queueBtn4.setText(""+objQueue4.get("queueNumber"));
                                         tv_comment4.setText(""+ objQueue4.get("comment"));
+                                        idQueue4 = Integer.parseInt(objQueue4.get("id").toString());
                                         if(objQueue4.get("insurance").equals("have")) {
-                                            Text4.setBackgroundColor(Color.RED);
+                                            queueBtn4.setBackgroundColor(Color.RED);
                                         } else {
-                                            Text4.setBackgroundColor(Color.GREEN);
+                                            queueBtn4.setBackgroundColor(Color.GREEN);
                                         }
                                     }
                                     case 2:  {
-                                        Text3.setText(""+objQueue3.get("queueNumber"));
+                                        queueBtn3.setText(""+objQueue3.get("queueNumber"));
                                         tv_comment3.setText(""+ objQueue3.get("comment"));
+                                        idQueue3 = Integer.parseInt(objQueue3.get("id").toString());
                                         if(objQueue3.get("insurance").equals("have") ) {
-                                            Text3.setBackgroundColor(Color.RED);
+                                            queueBtn3.setBackgroundColor(Color.RED);
                                         } else {
-                                            Text3.setBackgroundColor(Color.GREEN);
+                                            queueBtn3.setBackgroundColor(Color.GREEN);
                                         }
                                     }
                                     case 1:  {
-                                        Text2.setText(""+objQueue2.get("queueNumber"));
+                                        queueBtn2.setText(""+objQueue2.get("queueNumber"));
                                         tv_comment2.setText(""+ objQueue2.get("comment"));
+                                        idQueue2 = Integer.parseInt(objQueue2.get("id").toString());
                                         if(objQueue2.get("insurance").equals("have")) {
-                                            Text2.setBackgroundColor(Color.RED);
+                                            queueBtn2.setBackgroundColor(Color.RED);
                                         } else {
-                                            Text2.setBackgroundColor(Color.GREEN);
+                                            queueBtn2.setBackgroundColor(Color.GREEN);
                                         }
                                     }
                                     case 0:  {
-                                        queueBtn.setText(""+objQueue1.get("queueNumber") );
+                                        queueBtn1.setText(""+objQueue1.get("queueNumber") );
                                         tv_comment1.setText(""+ objQueue1.get("comment"));
-                                        idQueue = Integer.parseInt(objQueue1.get("id").toString());
+                                        idQueue1 = Integer.parseInt(objQueue1.get("id").toString());
                                         if(objQueue1.get("insurance").equals("have")) {
-                                            queueBtn.setBackgroundColor(Color.RED);
+                                            queueBtn1.setBackgroundColor(Color.RED);
                                         } else {
-                                            queueBtn.setBackgroundColor(Color.GREEN);
+                                            queueBtn1.setBackgroundColor(Color.GREEN);
                                         }
                                     }
                                 }
@@ -142,11 +144,35 @@ public class QueueTechnician extends AppCompatActivity {
         };
         t.schedule(tt,5000,5000);
 
-        queueBtn.setOnClickListener(new View.OnClickListener() {
+        queueBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent queueShow = new Intent(QueueTechnician.this, queueShow.class);
-                queueShow.putExtra("id", idQueue);
+                queueShow.putExtra("id", idQueue1);
+                startActivity(queueShow);
+            }
+        });
+        queueBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent queueShow = new Intent(QueueTechnician.this, queueShow.class);
+                queueShow.putExtra("id", idQueue2);
+                startActivity(queueShow);
+            }
+        });
+        queueBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent queueShow = new Intent(QueueTechnician.this, queueShow.class);
+                queueShow.putExtra("id", idQueue3);
+                startActivity(queueShow);
+            }
+        });
+        queueBtn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent queueShow = new Intent(QueueTechnician.this, queueShow.class);
+                queueShow.putExtra("id", idQueue4);
                 startActivity(queueShow);
             }
         });
