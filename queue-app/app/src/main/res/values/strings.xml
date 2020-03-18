@@ -10,6 +10,9 @@
         <item>ช่าง</item>
     </string-array>
 
+    <string name="Donthave">ไม่มีประกัน</string>
+    <string name="have">มีประกัน</string>
+
     <string-array name="insurance">
         <!--<item>Dont have</item>-->
         <!--<item>have</item>-->

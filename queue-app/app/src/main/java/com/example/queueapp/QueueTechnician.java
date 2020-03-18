@@ -57,6 +57,18 @@ public class QueueTechnician extends AppCompatActivity {
         statustv = (TextView) findViewById(R.id.tv_status);
         jobnumbertv = (TextView) findViewById(R.id.tv_jobnumber);
 
+        queueBtn4.setVisibility(TextView.INVISIBLE);
+        queueBtn3.setVisibility(TextView.INVISIBLE);
+        queueBtn2.setVisibility(TextView.INVISIBLE);
+        queueBtn1.setVisibility(TextView.INVISIBLE);
+
+        nextQueue.setVisibility(TextView.INVISIBLE);
+        queueNumbertv.setVisibility(TextView.INVISIBLE);
+        commenttv.setVisibility(TextView.INVISIBLE);
+        insurancetv.setVisibility(TextView.INVISIBLE);
+        statustv.setVisibility(TextView.INVISIBLE);
+        jobnumbertv.setVisibility(TextView.INVISIBLE);
+
         t = new Timer();
         tt = new TimerTask() {
             @Override
@@ -71,7 +83,6 @@ public class QueueTechnician extends AppCompatActivity {
 
                 try {
                     objDataResult = new JSONArray(result);
-                    System.out.println(objDataResult);
                     for(int i = 0; i < objDataResult.length(); i++) {
                         switch (i) {
                             case 0:  objQueue1 = objDataResult.getJSONObject(0);
@@ -93,10 +104,31 @@ public class QueueTechnician extends AppCompatActivity {
                                 queueBtn3.setText("0");
                                 queueBtn2.setText("0");
                                 queueBtn1.setText("0");
+                                queueBtn4.setVisibility(TextView.INVISIBLE);
+                                queueBtn3.setVisibility(TextView.INVISIBLE);
+                                queueBtn2.setVisibility(TextView.INVISIBLE);
+                                queueBtn1.setVisibility(TextView.INVISIBLE);
+
+                                nextQueue.setVisibility(TextView.INVISIBLE);
+                                queueNumbertv.setVisibility(TextView.INVISIBLE);
+                                commenttv.setVisibility(TextView.INVISIBLE);
+                                insurancetv.setVisibility(TextView.INVISIBLE);
+                                statustv.setVisibility(TextView.INVISIBLE);
+                                jobnumbertv.setVisibility(TextView.INVISIBLE);
+
+//                                VISIBLE
+//                                INVISIBLE
                                 idQueue1 = 0;
 
+                                System.out.println("yyyyyyyyyyyyyyy");
+                                System.out.println(objDataResult);
+                                System.out.println(objDataResult.length());
+
                                 switch (objDataResult.length() - 1) {
+                                    case 5: {}
+                                    case 4: {}
                                     case 3:  {
+                                        queueBtn4.setVisibility(TextView.VISIBLE);
                                         queueBtn4.setText(""+objQueue4.get("queueNumber"));
                                         idQueue4 = Integer.parseInt(objQueue4.get("id").toString());
                                         if(objQueue4.get("insurance").equals("have")) {
@@ -106,6 +138,7 @@ public class QueueTechnician extends AppCompatActivity {
                                         }
                                     }
                                     case 2:  {
+                                        queueBtn3.setVisibility(TextView.VISIBLE);
                                         queueBtn3.setText(""+objQueue3.get("queueNumber"));
                                         idQueue3 = Integer.parseInt(objQueue3.get("id").toString());
                                         if(objQueue3.get("insurance").equals("have") ) {
@@ -115,6 +148,7 @@ public class QueueTechnician extends AppCompatActivity {
                                         }
                                     }
                                     case 1:  {
+                                        queueBtn2.setVisibility(TextView.VISIBLE);
                                         queueBtn2.setText(""+objQueue2.get("queueNumber"));
                                         idQueue2 = Integer.parseInt(objQueue2.get("id").toString());
                                         if(objQueue2.get("insurance").equals("have")) {
@@ -124,6 +158,7 @@ public class QueueTechnician extends AppCompatActivity {
                                         }
                                     }
                                     case 0:  {
+                                        queueBtn1.setVisibility(TextView.VISIBLE);
                                         queueBtn1.setText(""+objQueue1.get("queueNumber") );
                                         idQueue1 = Integer.parseInt(objQueue1.get("id").toString());
                                         if(objQueue1.get("insurance").equals("have")) {
@@ -132,11 +167,39 @@ public class QueueTechnician extends AppCompatActivity {
                                             queueBtn1.setBackgroundColor(Color.GREEN);
                                         }
 
-                                        queueNumbertv.setText(""+objQueue1.get("queueNumber"));
-                                        commenttv.setText(""+objQueue1.get("comment"));
-                                        insurancetv.setText(""+objQueue1.get("insurance"));
-                                        statustv.setText(""+objQueue1.get("status"));
-                                        jobnumbertv.setText(""+objQueue1.get("jobnumber"));
+                                        System.out.println("yyyyyyyyyyyyyyy");
+                                        System.out.println(objQueue1);
+                                        nextQueue.setVisibility(TextView.VISIBLE);
+                                        queueNumbertv.setVisibility(TextView.VISIBLE);
+                                        commenttv.setVisibility(TextView.VISIBLE);
+                                        insurancetv.setVisibility(TextView.VISIBLE);
+                                        statustv.setVisibility(TextView.VISIBLE);
+                                        jobnumbertv.setVisibility(TextView.VISIBLE);
+
+                                        queueNumbertv.setText("หมายเลขคิว " + objQueue1.getString("queueNumber"));
+                                        if(!objQueue1.getString("comment").equals("")){
+                                            commenttv.setText("หมายเหตุ : "+ objQueue1.getString("comment"));
+                                        } else {
+                                            commenttv.setText("หมายเหตุ : ไม่มี");
+                                        }
+                                        if(objQueue1.getString("insurance").equals("have")) {
+                                            insurancetv.setText("มีสิทธิประกัน");
+                                        } else {
+                                            insurancetv.setText("ไม่มีสิทธิประกัน");
+                                        }
+                                        if(objQueue1.getString("status").equals("wait")) {
+                                            statustv.setText("สถานะ : รอคิว");
+                                        } else if(objQueue1.getString("status").equals("proceed")) {
+                                            statustv.setText("สถานะ : ดำเนินงาน");
+                                        } else {
+                                            statustv.setText("สถานะ : เสร็จสิ้น");
+                                        }
+
+                                        if(!objQueue1.getString("jobnumber").equals("")) {
+                                            jobnumbertv.setText("หมายเลขงาน : " + objQueue1.getString("jobnumber"));
+                                        } else {
+                                            jobnumbertv.setText("หมายเลขงาน : ไม่มี");
+                                        }
                                     }
                                 }
 
@@ -157,7 +220,13 @@ public class QueueTechnician extends AppCompatActivity {
         nextQueue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //next
+                try {
+                    result = new RequestAsync("next-queue").execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
         queueBtn1.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +294,8 @@ public class QueueTechnician extends AppCompatActivity {
             try {
                 if(path.equals("logout")) {
                     return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/logout");
+                } else if(path.equals("next-queue")) {
+                    return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues/next-queue");
                 } else {
                     return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/queues");
                 }

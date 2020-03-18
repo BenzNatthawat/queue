@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +20,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     // Add a different request code for every activity you are starting from here
     private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
@@ -32,11 +34,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     TextView nameUI;
     EditText commentUI;
     EditText jobnumberUI;
-    Spinner insuranceUI;
-    String insurance;
     SharedData sharedData = SharedData.getInstance();
     JSONObject objDataResult;
-    String dataResult;
+    String dataResult, insurance;
+    RadioGroup radioInsuranceGroup;
+    RadioButton radioInsuranceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +53,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         commentUI = (EditText) findViewById(R.id.comment);
         nameUI = (TextView) findViewById(R.id.name);
         jobnumberUI = (EditText) findViewById(R.id.jobnumber);
+        radioInsuranceGroup = (RadioGroup) findViewById(R.id.radioSex);
 
-        insuranceUI = findViewById(R.id.insurance);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.insurance, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        insuranceUI.setAdapter(adapter);
-        insuranceUI.setOnItemSelectedListener(this);
 
         if(sharedData.getToken() == "") { // go to login
             Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
@@ -67,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         nextQueueUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int selectedId = radioInsuranceGroup.getCheckedRadioButtonId();
+                // find the radiobutton by returned id
+                radioInsuranceButton = (RadioButton) findViewById(selectedId);
+                if(radioInsuranceButton.getText().equals("มีประกัน")) {
+                    insurance = "have";
+                } else {
+                    insurance = "Dont have";
+                }
 
                 if(sharedData.getToken() == "") { // go to login
                     Toast.makeText(getApplicationContext(), "กรุณาเข้าสู่ระบบ", Toast.LENGTH_LONG).show();
@@ -88,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         nameUI.setText(sharedData.getName());
                         commentUI.setText("");
                         jobnumberUI.setText("");
-                        insuranceUI.setSelection(0);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -107,20 +115,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        if(text.equals("มีประกัน")) {
-            insurance = "have";
-        } else {
-            insurance = "Dont have";
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
     // This method is called when the second activity finishes
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
