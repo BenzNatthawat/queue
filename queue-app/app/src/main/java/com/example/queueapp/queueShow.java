@@ -53,8 +53,6 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
             result = new RequestAsync("GET", id).execute().get();
             objDataResult = new JSONObject(result);
 
-            System.out.println("xxxxxxxxxx");
-            System.out.println(objDataResult);
             queueNumbertv.setText("หมายเลขคิว " + objDataResult.getString("queueNumber"));
             if(!objDataResult.getString("comment").equals("")){
                 commenttv.setText("หมายเหตุ : "+ objDataResult.getString("comment"));

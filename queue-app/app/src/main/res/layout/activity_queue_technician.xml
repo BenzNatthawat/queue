@@ -8,10 +8,10 @@
 
     <Button
         android:id="@+id/text4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:background="#D6FDCB"
         android:gravity="center"
         android:padding="10dp"
@@ -28,19 +28,16 @@
         android:typeface="normal"
         android:verticalScrollbarPosition="defaultPosition"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/queueBtn"
-        app:layout_constraintHorizontal_bias="0.837"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text3"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintTop_toBottomOf="@+id/text3" />
 
     <Button
-        android:elevation="0dp"
         android:id="@+id/queueBtn"
         android:layout_width="227dp"
-        android:layout_height="332dp"
+        android:layout_height="257dp"
+        android:layout_marginTop="8dp"
         android:background="#6AFF3D"
+        android:elevation="0dp"
         android:gravity="center"
         android:padding="10dp"
         android:paddingStart="10dp"
@@ -58,17 +55,17 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.012" />
 
     <Button
         android:id="@+id/text2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:background="#9AFD7B"
         android:gravity="center"
         android:padding="10dp"
@@ -85,16 +82,15 @@
         android:typeface="normal"
         android:verticalScrollbarPosition="defaultPosition"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/text3"
         app:layout_constraintEnd_toStartOf="@+id/queueBtn"
-        app:layout_constraintHorizontal_bias="0.837"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <Button
         android:id="@+id/text3"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="38dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         android:background="#BEFFA9"
         android:gravity="center"
         android:padding="10dp"
@@ -111,9 +107,8 @@
         android:typeface="normal"
         android:verticalScrollbarPosition="defaultPosition"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/queueBtn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <TextView
         android:id="@+id/name"
@@ -139,47 +134,83 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_comment1"
-        android:layout_width="227dp"
+        android:id="@+id/tv_queueNumber"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/queueBtn"
-        app:layout_constraintEnd_toEndOf="@+id/queueBtn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="หมายเลขคิว"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queueBtn" />
 
     <TextView
-        android:id="@+id/tv_comment2"
-        android:layout_width="100dp"
+        android:id="@+id/tv_comment"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/text2"
-        app:layout_constraintEnd_toEndOf="@+id/text2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="หมายเหตุ"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_queueNumber" />
 
     <TextView
-        android:id="@+id/tv_comment3"
-        android:layout_width="100dp"
+        android:id="@+id/tv_insurance"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/text3"
-        app:layout_constraintEnd_toEndOf="@+id/text3"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="ประกัน"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_jobnumber" />
 
     <TextView
-        android:id="@+id/tv_comment4"
-        android:layout_width="100dp"
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/text4"
-        app:layout_constraintEnd_toEndOf="@+id/text4"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/queueBtn" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="สถานะ"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_insurance" />
+
+    <TextView
+        android:id="@+id/tv_jobnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:text="หมายงาน"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_comment" />
+
+    <Button
+        android:id="@+id/nextQueue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorPrimary"
+        android:text="ยืนยัน"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_status" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ const index = async (req, res, next) => {
   const { id } = req.decoded
   const db = await loadDB()
   await db.query(`
-  SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment FROM queues 
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment, jobnumber FROM queues 
   WHERE technicians__id = ${id} AND status = 'wait'
   ORDER BY insurance, createdAt, id LIMIT 4;
   SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment FROM queues 
@@ -85,8 +85,44 @@ const update = async (req, res, next) => {
   })
 }
 
+const nextQueue = async (req, res, next) => {
+
+  const { id } = req.decoded
+  const db = await loadDB()
+  await db.query(`
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment, jobnumber FROM queues 
+  WHERE technicians__id = ${id} AND status = 'wait'
+  ORDER BY insurance, createdAt, id LIMIT 1;
+  SELECT id, queueNumber, technicians__id, createdAt, status, insurance, comment FROM queues 
+  WHERE technicians__id = ${id} AND status = 'proceed' LIMIT 1;
+  `, async (err, results) => {
+    if (err) throw err
+    let resultA = [...results[0]]
+    let resultB = [...results[1]]
+    resultA.unshift(...resultB)
+    let queuesTmp = JSON.stringify(resultA)
+    let queues = JSON.parse(queuesTmp)
+    if (queues.length > 0) {
+      if (queues[0]) {
+        await db.query(`UPDATE queues SET status = 'completed' WHERE id = ${queues[0].id};`, async (err, results) => {
+          if (err) throw err
+        })
+      }
+      if (queues[1]) {
+        await db.query(`UPDATE queues SET status = 'proceed' WHERE id = ${queues[1].id};`, async (err, results) => {
+          if (err) throw err
+        })
+      }
+      return res.json("200")
+    }
+    return res.json(results[0])
+  })
+}
+
 router.get('/', index)
+  .get('/next-queue', nextQueue)
   .get('/:id', show)
   .post('/create', create)
   .post('/:id', update)
+
 module.exports = router

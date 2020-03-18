@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +26,15 @@ public class QueueTechnician extends AppCompatActivity {
     String result;
     Button logoutUI;
     JSONArray objDataResult;
-    TextView nameUI, tv_comment1, tv_comment2, tv_comment3, tv_comment4;
+    TextView nameUI;
     JSONObject objQueue1, objQueue2, objQueue3, objQueue4;
     Button queueBtn1, queueBtn2, queueBtn3, queueBtn4;
     SharedData sharedData = SharedData.getInstance();
     Timer t;
     TimerTask tt;
+
+    Button nextQueue;
+    TextView queueNumbertv, commenttv, insurancetv, statustv, jobnumbertv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +47,15 @@ public class QueueTechnician extends AppCompatActivity {
         queueBtn4 = (Button) findViewById(R.id.text4);
         logoutUI = (Button) findViewById(R.id.logout);
         nameUI = (TextView) findViewById(R.id.name);
-        tv_comment1 = (TextView) findViewById(R.id.tv_comment1);
-        tv_comment2 = (TextView) findViewById(R.id.tv_comment2);
-        tv_comment3 = (TextView) findViewById(R.id.tv_comment3);
-        tv_comment4 = (TextView) findViewById(R.id.tv_comment4);
         nameUI.setText(sharedData.getName());
+
+
+        nextQueue = (Button) findViewById(R.id.nextQueue);
+        queueNumbertv = (TextView) findViewById(R.id.tv_queueNumber);
+        commenttv = (TextView) findViewById(R.id.tv_comment);
+        insurancetv = (TextView) findViewById(R.id.tv_insurance);
+        statustv = (TextView) findViewById(R.id.tv_status);
+        jobnumbertv = (TextView) findViewById(R.id.tv_jobnumber);
 
         t = new Timer();
         tt = new TimerTask() {
@@ -90,7 +98,6 @@ public class QueueTechnician extends AppCompatActivity {
                                 switch (objDataResult.length() - 1) {
                                     case 3:  {
                                         queueBtn4.setText(""+objQueue4.get("queueNumber"));
-                                        tv_comment4.setText(""+ objQueue4.get("comment"));
                                         idQueue4 = Integer.parseInt(objQueue4.get("id").toString());
                                         if(objQueue4.get("insurance").equals("have")) {
                                             queueBtn4.setBackgroundColor(Color.RED);
@@ -100,7 +107,6 @@ public class QueueTechnician extends AppCompatActivity {
                                     }
                                     case 2:  {
                                         queueBtn3.setText(""+objQueue3.get("queueNumber"));
-                                        tv_comment3.setText(""+ objQueue3.get("comment"));
                                         idQueue3 = Integer.parseInt(objQueue3.get("id").toString());
                                         if(objQueue3.get("insurance").equals("have") ) {
                                             queueBtn3.setBackgroundColor(Color.RED);
@@ -110,7 +116,6 @@ public class QueueTechnician extends AppCompatActivity {
                                     }
                                     case 1:  {
                                         queueBtn2.setText(""+objQueue2.get("queueNumber"));
-                                        tv_comment2.setText(""+ objQueue2.get("comment"));
                                         idQueue2 = Integer.parseInt(objQueue2.get("id").toString());
                                         if(objQueue2.get("insurance").equals("have")) {
                                             queueBtn2.setBackgroundColor(Color.RED);
@@ -120,13 +125,18 @@ public class QueueTechnician extends AppCompatActivity {
                                     }
                                     case 0:  {
                                         queueBtn1.setText(""+objQueue1.get("queueNumber") );
-                                        tv_comment1.setText(""+ objQueue1.get("comment"));
                                         idQueue1 = Integer.parseInt(objQueue1.get("id").toString());
                                         if(objQueue1.get("insurance").equals("have")) {
                                             queueBtn1.setBackgroundColor(Color.RED);
                                         } else {
                                             queueBtn1.setBackgroundColor(Color.GREEN);
                                         }
+
+                                        queueNumbertv.setText(""+objQueue1.get("queueNumber"));
+                                        commenttv.setText(""+objQueue1.get("comment"));
+                                        insurancetv.setText(""+objQueue1.get("insurance"));
+                                        statustv.setText(""+objQueue1.get("status"));
+                                        jobnumbertv.setText(""+objQueue1.get("jobnumber"));
                                     }
                                 }
 
@@ -144,6 +154,12 @@ public class QueueTechnician extends AppCompatActivity {
         };
         t.schedule(tt,5000,5000);
 
+        nextQueue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //next
+            }
+        });
         queueBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
