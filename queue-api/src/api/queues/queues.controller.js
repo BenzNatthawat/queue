@@ -37,15 +37,15 @@ const create = async (req, res, next) => {
     LEFT OUTER JOIN 
       (SELECT technicians__id, COUNT(technicians__id) AS countTechniciansId FROM queues WHERE STATUS = 'wait' OR STATUS = 'proceed' GROUP BY technicians__id) AS groupQueues
     ON users.id = groupQueues.technicians__id
-    WHERE role = 'technician' AND STATUS = 1;
+    WHERE role = 'technician' AND status = 1;
     SELECT id FROM users WHERE id = ${id};
   `, async (err, results) => {
     if (err) throw err
     let queueNumber, techniciansId, minQueueLoad, status
-    if (results[1].length > 0) {
+    if (results[2].length > 0) {
       if (results[0].length === 0) {
         queueNumber = 1
-        techniciansId = results[1][0].id
+        techniciansId = results[2][0].id
       } else {
         //    หาว่าช่างคนไหน load queue น้อย สุด
         minQueueLoad = results[1].reduce(function (res, obj) {
