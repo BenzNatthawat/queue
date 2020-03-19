@@ -60,7 +60,7 @@ const create = async (req, res, next) => {
     } else {
       return res.json({ error: 'กรุณาเพิ่มช่าง' })
     }
-    if (minQueueLoad.queuesLoad === 0) {
+    if (results[0].length === 0 || minQueueLoad && minQueueLoad.queuesLoad && minQueueLoad.queuesLoad === 0) {
       status = 'proceed'
     } else {
       status = 'wait'

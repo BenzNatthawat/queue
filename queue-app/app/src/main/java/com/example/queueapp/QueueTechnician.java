@@ -167,8 +167,6 @@ public class QueueTechnician extends AppCompatActivity {
                                             queueBtn1.setBackgroundColor(Color.GREEN);
                                         }
 
-                                        System.out.println("yyyyyyyyyyyyyyy");
-                                        System.out.println(objQueue1);
                                         nextQueue.setVisibility(TextView.VISIBLE);
                                         queueNumbertv.setVisibility(TextView.VISIBLE);
                                         commenttv.setVisibility(TextView.VISIBLE);
