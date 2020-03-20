@@ -22,11 +22,11 @@ import java.util.concurrent.ExecutionException;
 
 public class queueShow extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Spinner statusUI;
+//    Spinner statusUI;
     String status;
     String result, dataResult;
     JSONObject objDataResult;
-    Button confrimUI;
+//    Button confrimUI;
     TextView queueNumbertv, commenttv, insurancetv, statustv, jobnumbertv;
 
     @Override
@@ -34,7 +34,7 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue_show);
 
-        confrimUI = (Button) findViewById(R.id.btnUpdateQueue);
+//        confrimUI = (Button) findViewById(R.id.btnUpdateQueue);
         Bundle bundle = getIntent().getExtras();
         final int id = bundle.getInt("id");
         queueNumbertv = (TextView) findViewById(R.id.tv_queueNumber);
@@ -43,11 +43,11 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
         statustv = (TextView) findViewById(R.id.tv_status);
         jobnumbertv = (TextView) findViewById(R.id.tv_jobnumber);
 
-        statusUI = findViewById(R.id.ed_status);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statusUI.setAdapter(adapter);
-        statusUI.setOnItemSelectedListener(this);
+//        statusUI = findViewById(R.id.ed_status);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        statusUI.setAdapter(adapter);
+//        statusUI.setOnItemSelectedListener(this);
 
         try {
             result = new RequestAsync("GET", id).execute().get();
@@ -78,13 +78,13 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
                 jobnumbertv.setText("หมายเลขงาน : ไม่มี");
             }
 
-            if(objDataResult.getString("status").equals("completed")) {
-                statusUI.setSelection(2);
-            } else if(objDataResult.getString("status").equals("proceed")) {
-                statusUI.setSelection(1);
-            } else {
-                statusUI.setSelection(0);
-            }
+//            if(objDataResult.getString("status").equals("completed")) {
+//                statusUI.setSelection(2);
+//            } else if(objDataResult.getString("status").equals("proceed")) {
+//                statusUI.setSelection(1);
+//            } else {
+//                statusUI.setSelection(0);
+//            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -94,19 +94,19 @@ public class queueShow extends AppCompatActivity implements AdapterView.OnItemSe
             e.printStackTrace();
         }
 
-        confrimUI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    dataResult = new RequestAsync("POST",  status, id).execute().get();
-                    finish();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        confrimUI.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    dataResult = new RequestAsync("POST",  status, id).execute().get();
+//                    finish();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 
     @Override

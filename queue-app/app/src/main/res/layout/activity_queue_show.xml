@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".queueShow">
 
-    <Spinner
-        android:id="@+id/ed_status"
-        android:layout_width="268dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="16dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_status" />
+    <!--<Spinner-->
+        <!--android:id="@+id/ed_status"-->
+        <!--android:layout_width="268dp"-->
+        <!--android:layout_height="66dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:spinnerMode="dropdown"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_status" />-->
 
     <TextView
         android:id="@+id/tv_queueNumber"
@@ -81,17 +81,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_comment" />
 
-    <Button
-        android:id="@+id/btnUpdateQueue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="ยืนยัน"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ed_status" />
+    <!--<Button-->
+        <!--android:id="@+id/btnUpdateQueue"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:text="ยืนยัน"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/ed_status" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

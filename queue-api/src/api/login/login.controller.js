@@ -22,7 +22,11 @@ const login = async (req, res, next) => {
               const token = signin({ id: resultsLogin.id, username })
               return res.json({ success: 'login success', token, username: resultsLogin.username, name: resultsLogin.name, role: resultsLogin.role })
             })
+          } else {
+            return res.json({ error: 'error', username, password })
           }
+        } else {
+          return res.json({ error: 'error', username, password })
         }
       })
     } else {

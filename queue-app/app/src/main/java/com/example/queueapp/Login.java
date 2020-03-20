@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -24,7 +25,7 @@ public class Login extends AppCompatActivity {
     EditText passwordUI;
     Button btLoginUI;
     Button btRegisterUI;
-
+    TextView tvError;
     String result;
     JSONObject objDataResult;
 
@@ -37,6 +38,8 @@ public class Login extends AppCompatActivity {
         passwordUI = (EditText) findViewById(R.id.password);
         btLoginUI = (Button) findViewById(R.id.btLogin);
         btRegisterUI = (Button) findViewById(R.id.btRegisterUI);
+        tvError = (TextView) findViewById(R.id.tv_error);
+        tvError.setVisibility(TextView.INVISIBLE);
         final SharedData sharedData = SharedData.getInstance();
 
         btLoginUI.setOnClickListener(new View.OnClickListener() {
@@ -51,12 +54,20 @@ public class Login extends AppCompatActivity {
                 }
                 try {
                     objDataResult = new JSONObject(result);
-                    sharedData.setToken((String) objDataResult.get("token"));
-                    sharedData.setName((String) objDataResult.get("name"));
-                    sharedData.setRole((String) objDataResult.get("role"));
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    System.out.println("xxxxxxx");
+                    System.out.println(objDataResult);
+                    if(objDataResult.has("error") && objDataResult.get("error").equals("error")) {
+                        tvError.setVisibility(TextView.VISIBLE);
+                        tvError.setText("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+                    } else {
+                        tvError.setVisibility(TextView.INVISIBLE);
+                        sharedData.setToken((String) objDataResult.get("token"));
+                        sharedData.setName((String) objDataResult.get("name"));
+                        sharedData.setRole((String) objDataResult.get("role"));
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
 
